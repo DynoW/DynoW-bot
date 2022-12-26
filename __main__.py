@@ -3,7 +3,7 @@ from discord.ext import commands
 from datetime import datetime
 import random
 import secret
-import bot
+import bot_commands
 
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="This is a Helper Bot")
