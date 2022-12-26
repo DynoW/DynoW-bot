@@ -5,9 +5,7 @@ import random
 import secret
 
 # Env variables --------------------------------------------------------------------------------------------------------
-intents = discord.Intents.default()
-
-bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=intents)
+bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.default())
 
 # Commands variables ---------------------------------------------------------------------------------------------------
 id_server = bot.get_guild(890478813249699850)
