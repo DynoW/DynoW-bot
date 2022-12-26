@@ -64,6 +64,7 @@ async def serverinfo(ctx):
     await ctx.send(embed=embed)
 '''
 
+
 @bot.command()
 async def comenzi(ctx):
     await ctx.send("Command temoraly disabed!")
