@@ -6,7 +6,10 @@ import secret
 import bot_commands
 
 # Env variables --------------------------------------------------------------------------------------------------------
-bot = commands.Bot(command_prefix="$", description="This is a Helper Bot")
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=intents)
 
 # Commands variables ----------------------------------------------------------------------------------------------------------------
 id_server = bot.get_guild(890478813249699850)
