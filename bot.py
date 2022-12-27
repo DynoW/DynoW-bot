@@ -22,19 +22,16 @@ async def ping(ctx):
 
 
 @bot.command()
-async def zile_bac(ctx):
+async def zile(ctx, obj: str):
     current_time = datetime.now()
-    momentspecial = datetime(2025, 6, 12)
-    timprams = momentspecial - current_time
-    await ctx.send("Mai sunt ~" + str(timprams.days) + " zile pana la bac.")
-
-
-@bot.command()
-async def zile_scoala(ctx):
-    current_time = datetime.now()
-    momentspecial = datetime(2022, 6, 15)
-    timprams = momentspecial - current_time
-    await ctx.send("Mai sunt ~" + str(timprams.days) + " zile pana la scoala.")
+    if obj == "scoala":
+        momentspecial = datetime(2023, 6, 15)
+        timpramas = momentspecial - current_time
+        await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile de scoala.")
+    if obj == "bac":
+        momentspecial = datetime(2025, 6, 12)
+        timpramas = momentspecial - current_time
+        await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile pana la bac.")
 
 
 '''
