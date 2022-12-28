@@ -64,7 +64,7 @@ async def serverinfo(ctx):
 
 @bot.command()
 async def comenzi(ctx):
-    await ctx.send("Command temoraly disabed!")
+    await ctx.send("Command is temoraly disabed!")
 
 
 # Listening events -----------------------------------------------------------------------------------------------------
