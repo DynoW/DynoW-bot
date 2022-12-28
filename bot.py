@@ -54,7 +54,6 @@ async def serverinfo(ctx):
     embed = discord.Embed(title=f"{ctx.guild.name}", description="Description: "f"{ctx.guild.description}",
                           color=discord.Color.blue())
     embed.add_field(name="Server created at", value=ctx.guild.created_at.strftime("%d.%m.%Y %H:%M:%S"), inline=False)
-    embed.add_field(name="Server Owner", value=f"{ctx.guild.owner}", inline=False)
     embed.add_field(name="Server Region", value=f"{ctx.guild.region}", inline=False)
     embed.add_field(name="Server ID", value=f"{ctx.guild.id}", inline=False)
     embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
