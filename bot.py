@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", inten
 # Events ---------------------------------------------------------------------------------------------------------------
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="$comenzi | dynow.tk"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="$comenzi | dynow.tk/bot"))
     print("Bot is online!")
 
 
