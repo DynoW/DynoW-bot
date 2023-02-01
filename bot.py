@@ -65,6 +65,19 @@ async def serverinfo(ctx):
 async def comenzi(ctx):
     await ctx.send("Command is temoraly disabed!")
 
+# Catalog commands -----------------------------------------
+
+@bot.command()
+async def top5(ctx):
+    await ctx.send("Command is temoraly disabed!")
+    
+@bot.command()
+async def catalog(ctx):
+    await ctx.send("Command is temoraly disabed!")
+    
+@bot.command()
+async def top5(ctx):
+    await ctx.send("Command is temoraly disabed!")
 
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
