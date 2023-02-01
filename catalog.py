@@ -18,12 +18,13 @@ with open("secret.json", "r") as s:
 
 options = Options()
 options.add_argument("--headless")
+options.add_argument('--no-sandbox')
 options.add_argument("user-data-dir=D:\\Documents HDD\\VSC\\bot-nike\\cache")
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
                      + "AppleWebKit/537.36 (KHTML, like Gecko)"
                      + "Chrome/87.0.4280.141 Safari/537.36")
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 
 driver.get("https://www.24edu.ro/Catalog")
