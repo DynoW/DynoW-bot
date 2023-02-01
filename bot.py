@@ -5,7 +5,7 @@ import random
 import secret
 
 # Env variables --------------------------------------------------------------------------------------------------------
-bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.default())
+bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
 
 
 # Events ---------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ async def catalog(ctx):
     await ctx.send("Command is temoraly disabed!")
     
 @bot.command()
-async def top5(ctx):
+async def medie(ctx):
     await ctx.send("Command is temoraly disabed!")
 
 # Listening events -----------------------------------------------------------------------------------------------------
