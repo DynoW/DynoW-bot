@@ -3,6 +3,13 @@ from discord.ext import commands
 from datetime import datetime
 import random
 import secret
+import json
+
+with open("catalog.json", "r") as r:
+    catalog = json.load(r)
+with open("elevi.json", "r") as r:
+    listaElevi = json.load(r)
+    
 
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
@@ -69,11 +76,22 @@ async def comenzi(ctx):
 
 @bot.command()
 async def top5(ctx):
-    await ctx.send("Command is temoraly disabed!")
+    mesaj = ""
+    top5 = []
+    for elev in catalog:
+        for note in elev["Medii"]:
+            sumaNote = note["Nota"]
+        average = sumaNote/len(elev["Medii"])
+        top5.append([elev["elevId"], round(average,2)])
+    await ctx.send(top5)
+    
     
 @bot.command()
-async def catalog(ctx):
-    await ctx.send("Command is temoraly disabed!")
+async def elevi(ctx):
+    mesaj = ""
+    for elev in listaElevi:
+        mesaj = mesaj + elev["$id"] + ". " + elev["nume"] + " - " + elev["elevId"] + "\n"
+    await ctx.send(mesaj)
     
 @bot.command()
 async def medie(ctx):
