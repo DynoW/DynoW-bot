@@ -4,6 +4,7 @@ from datetime import datetime
 import random
 import secret
 import json
+import math
 
 with open("catalog.json", "r") as r:
     catalog = json.load(r)
@@ -76,15 +77,40 @@ async def comenzi(ctx):
 
 @bot.command()
 async def top5(ctx):
-    mesaj = ""
-    top5 = []
+    mediiElevi = []
     for elev in catalog:
+        sumaMedii = 0
         for note in elev["Medii"]:
-            sumaNote = note["Nota"]
-        average = sumaNote/len(elev["Medii"])
-        top5.append([elev["elevId"], round(average,2)])
-    await ctx.send(top5)
-    
+            sumaMedii = sumaMedii + math.ceil(note["Nota"])
+        average = sumaMedii/len(elev["Medii"])
+        mediiElevi.append({"elevID": elev["elevId"], "medie": round(average,2)})
+    medieMax1 = {"elevID": "None", "medie": 0}
+    medieMax2 = {"elevID": "None", "medie": 0}
+    medieMax3 = {"elevID": "None", "medie": 0}
+    medieMax4 = {"elevID": "None", "medie": 0}
+    medieMax5 = {"elevID": "None", "medie": 0}
+    for medie in mediiElevi:
+        if medie["medie"] > medieMax1["medie"]:
+            medieMax5 = medieMax4
+            medieMax4 = medieMax3
+            medieMax3 = medieMax2
+            medieMax2 = medieMax1
+            medieMax1 = medie
+        elif medie["medie"] > medieMax2["medie"]:
+            medieMax5 = medieMax4
+            medieMax4 = medieMax3
+            medieMax3 = medieMax2
+            medieMax2 = medie
+        elif medie["medie"] > medieMax3["medie"]:
+            medieMax5 = medieMax4
+            medieMax4 = medieMax3
+            medieMax3 = medie
+        elif medie["medie"] > medieMax4["medie"]:
+            medieMax5 = medieMax4
+            medieMax4 = medie
+        elif medie["medie"] > medieMax5["medie"]:
+            medieMax5 = medie
+    await ctx.send(f"""{medieMax1} {medieMax2} {medieMax3} {medieMax4} {medieMax5}""")
     
 @bot.command()
 async def elevi(ctx):
@@ -94,9 +120,16 @@ async def elevi(ctx):
     await ctx.send(mesaj)
     
 @bot.command()
-async def medie(ctx):
-    await ctx.send("Command is temoraly disabed!")
-
+async def medii(ctx):
+    mediiElevi = []
+    for elev in catalog:
+        sumaMedii = 0
+        for note in elev["Medii"]:
+            sumaMedii = sumaMedii + math.ceil(note["Nota"])
+        average = sumaMedii/len(elev["Medii"])
+        mediiElevi.append([elev["elevId"], round(average,2)])
+    await ctx.send(mediiElevi)
+    
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
 async def on_message(message):
