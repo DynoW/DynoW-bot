@@ -74,7 +74,6 @@ async def comenzi(ctx):
     await ctx.send("Command is temoraly disabed!")
 
 # Catalog commands -----------------------------------------
-
 @bot.command()
 async def top5(ctx):
     mediiElevi = []
