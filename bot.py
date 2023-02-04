@@ -80,7 +80,7 @@ async def top5(ctx):
     for elev in catalog:
         sumaMedii = 0
         for note in elev["Medii"]:
-            sumaMedii = sumaMedii + math.ceil(note["Nota"])
+            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
         average = sumaMedii/len(elev["Medii"])
         mediiElevi.append({"elevID": elev["elevId"], "medie": round(average,2)})
     medieMax1 = {"elevID": "None", "medie": 0}
@@ -124,7 +124,7 @@ async def medii(ctx):
     for elev in catalog:
         sumaMedii = 0
         for note in elev["Medii"]:
-            sumaMedii = sumaMedii + math.ceil(note["Nota"])
+            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
         average = sumaMedii/len(elev["Medii"])
         mediiElevi.append([elev["elevId"], round(average,2)])
     await ctx.send(mediiElevi)
