@@ -27,8 +27,8 @@ mediiElevi = []
 def calcMedii():
     for elev in catalog:
         sumaMedii = 0
-        for note in elev["Medii"]:
-            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
+        for medi in elev["Medii"]:
+            sumaMedii = sumaMedii + round(medi["Nota"]+0.1)
         averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
         mediiElevi.append({"elevID": elev["elevId"], "medie": round(averageMedii,2)})
 calcMedii()
@@ -76,50 +76,67 @@ async def comenzi(ctx):
 
 # Catalog commands -----------------------------------------------------------------------------------------------------
 @bot.command()
+async def elevi(ctx):
+    mesaj = ""
+    for elev in listaElevi:
+        mesaj = mesaj + elev["$id"] + ". " + elev["nume"] + " - " + elev["elevId"] + "\n"
+    await ctx.send(mesaj)
+
+
+@bot.command()
+async def medii(ctx):
+    await ctx.send(mediiElevi)
+
+
+@bot.command()
 async def top5(ctx):
     medieMax1 = {"elevID": "None", "medie": 0}
     medieMax2 = {"elevID": "None", "medie": 0}
     medieMax3 = {"elevID": "None", "medie": 0}
     medieMax4 = {"elevID": "None", "medie": 0}
     medieMax5 = {"elevID": "None", "medie": 0}
-    for medie in mediiElevi:
-        if medie["medie"] > medieMax1["medie"]:
+    for media in mediiElevi:
+        if media["medie"] > medieMax1["medie"]:
             medieMax5 = medieMax4
             medieMax4 = medieMax3
             medieMax3 = medieMax2
             medieMax2 = medieMax1
-            medieMax1 = medie
-        elif medie["medie"] > medieMax2["medie"]:
+            medieMax1 = media
+        elif media["medie"] > medieMax2["medie"]:
             medieMax5 = medieMax4
             medieMax4 = medieMax3
             medieMax3 = medieMax2
-            medieMax2 = medie
-        elif medie["medie"] > medieMax3["medie"]:
+            medieMax2 = media
+        elif media["medie"] > medieMax3["medie"]:
             medieMax5 = medieMax4
             medieMax4 = medieMax3
-            medieMax3 = medie
-        elif medie["medie"] > medieMax4["medie"]:
+            medieMax3 = media
+        elif media["medie"] > medieMax4["medie"]:
             medieMax5 = medieMax4
-            medieMax4 = medie
-        elif medie["medie"] > medieMax5["medie"]:
-            medieMax5 = medie
+            medieMax4 = media
+        elif media["medie"] > medieMax5["medie"]:
+            medieMax5 = media
     await ctx.send(f"""[{medieMax1}, {medieMax2}, {medieMax3}, {medieMax4}, {medieMax5}]""")
-    
-@bot.command()
-async def elevi(ctx):
-    mesaj = ""
-    for elev in listaElevi:
-        mesaj = mesaj + elev["$id"] + ". " + elev["nume"] + " - " + elev["elevId"] + "\n"
-    await ctx.send(mesaj)
-    
-@bot.command()
-async def medii(ctx):
-    await ctx.send(mediiElevi)
+
 
 @bot.command()
 async def sync(ctx):
     calcMedii()
-    
+
+
+@bot.command()
+async def medie(ctx, elevId: str):
+    mesaj = ""
+    for elev in catalog:
+        if elev["elevId"] == elevId:
+            for materi in elev["Materii"]:
+                mesaj = mesaj + materi["Nume"] + " - "
+                for nota in materi["Despre"][0]["data"]:
+                    mesaj = mesaj + str(round(nota[1])) + " "
+                mesaj = mesaj + "\n"
+    await ctx.send(mesaj)
+
+
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
 async def on_message(message):
