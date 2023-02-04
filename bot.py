@@ -117,6 +117,8 @@ async def top5(ctx):
         elif media["medie"] > medieMax5["medie"]:
             medieMax5 = media
     await ctx.send(f"""[{medieMax1}, {medieMax2}, {medieMax3}, {medieMax4}, {medieMax5}]""")
+    
+    #comanda asta sa fie lista in loc de f. multe variablie (for loop)
 
 
 @bot.command()
