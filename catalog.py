@@ -18,16 +18,10 @@ with open("secret.json", "r") as s:
 
 options = Options()
 # options.add_extension("extension.crx")
-
 options.add_argument("--headless")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--no-sandbox")
-#options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-
-options.add_argument("cache")
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-                     + "AppleWebKit/537.36 (KHTML, like Gecko)"
-                     + "Chrome/87.0.4280.141 Safari/537.36")
+options.add_argument("user-data-dir=cache")
 
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
@@ -35,29 +29,8 @@ driver.implicitly_wait(10)
 driver.get("https://www.24edu.ro/Catalog")
 print("Loaded!")
 time.sleep(1)
+print(driver.title)
 
-"""
-if driver.current_url.startswith("https://www.24edu.ro/Cont/Autentificare?ReturnUrl=%2FCatalog"):
-    email = driver.find_element(By.ID, "UserName")
-    email.send_keys(secret["UserName"])
-    email.send_keys(Keys.RETURN)
-    password = driver.find_element(By.ID, "Password")
-    password.send_keys(secret["Password"])
-    WebDriverWait(driver, 5).until(EC.frame_to_be_available_and_switch_to_it(
-        (By.CSS_SELECTOR, "iframe[name^='a-'][src^='https://www.google.com/recaptcha/api2/anchor?']")))
-    WebDriverWait(driver, 5).until(
-        EC.element_to_be_clickable((By.XPATH, "//span[@id='recaptcha-anchor']"))).click()
-    driver.maximize_window()
-    time.sleep(1)
-    if EC.element_to_be_clickable((By.XPATH, "//table")):
-        pyautogui.click(979, 916)
-        time.sleep(3)
-        pyautogui.click(939, 692)
-    else:
-        pyautogui.click(939, 692)
-    time.sleep(30)
-    print("Mere!")
-"""
 if driver.current_url.startswith("https://www.24edu.ro/Catalog"):
     for elev in catalog:
         driver.get(
