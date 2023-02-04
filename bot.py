@@ -27,8 +27,8 @@ mediiElevi = []
 def calcMedii():
     for elev in catalog:
         sumaMedii = 0
-        for medi in elev["Medii"]:
-            sumaMedii = sumaMedii + round(medi["Nota"]+0.1)
+        for medie in elev["Medii"]:
+            sumaMedii = sumaMedii + round(medie["Nota"]+0.1)
         averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
         mediiElevi.append({"elevID": elev["elevId"], "medie": round(averageMedii,2)})
 calcMedii()
@@ -125,7 +125,7 @@ async def sync(ctx):
 
 
 @bot.command()
-async def medie(ctx, elevId: str):
+async def note(ctx, elevId: str):
     mesaj = ""
     for elev in catalog:
         if elev["elevId"] == elevId:
