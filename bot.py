@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 import random
-import secret
 import json
 import math
+import secret
 
 with open("catalog.json", "r") as r:
     catalog = json.load(r)
@@ -15,13 +15,23 @@ with open("elevi.json", "r") as r:
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
 
-
 # Events ---------------------------------------------------------------------------------------------------------------
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="$comenzi | dynow.tk/bot"))
     print("Bot is online!")
 
+# Functions ------------------------------------------------------------------------------------------------------------
+mediiElevi = []
+
+def calcMedii():
+    for elev in catalog:
+        sumaMedii = 0
+        for note in elev["Medii"]:
+            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
+        averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
+        mediiElevi.append({"elevID": elev["elevId"], "medie": round(averageMedii,2)})
+calcMedii()
 
 # Commands -------------------------------------------------------------------------------------------------------------
 @bot.command()
@@ -40,15 +50,6 @@ async def zile(ctx, obj: str):
         momentspecial = datetime(2025, 6, 12)
         timpramas = momentspecial - current_time
         await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile pana la bac.")
-
-
-'''
-@bot.command()
-async def zile_vacanta(ctx):
-    await ctx.send("⚠Eroare!!!⚠ Esti in vacanta! ᴅᴀɴᴜᴛᴢ ᴍᴏᴅᴇ ON")
-    await ctx.channel.send(
-        "https://media.cntraveler.com/photos/60e612ae0a709e97d73d9c60/1:1/w_3840,h_3840,c_limit/Beach%20Vacation%20Packing%20List-2021_GettyImages-1030311160.jpg")
-'''
 
 
 @bot.command()
@@ -73,16 +74,9 @@ async def serverinfo(ctx):
 async def comenzi(ctx):
     await ctx.send("Command is temoraly disabed!")
 
-# Catalog commands -----------------------------------------
+# Catalog commands -----------------------------------------------------------------------------------------------------
 @bot.command()
 async def top5(ctx):
-    mediiElevi = []
-    for elev in catalog:
-        sumaMedii = 0
-        for note in elev["Medii"]:
-            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
-        average = sumaMedii/len(elev["Medii"])
-        mediiElevi.append({"elevID": elev["elevId"], "medie": round(average,2)})
     medieMax1 = {"elevID": "None", "medie": 0}
     medieMax2 = {"elevID": "None", "medie": 0}
     medieMax3 = {"elevID": "None", "medie": 0}
@@ -120,26 +114,11 @@ async def elevi(ctx):
     
 @bot.command()
 async def medii(ctx):
-    mediiElevi = []
-    for elev in catalog:
-        sumaMedii = 0
-        for note in elev["Medii"]:
-            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
-        average = sumaMedii/len(elev["Medii"])
-        mediiElevi.append([elev["elevId"], round(average,2)])
     await ctx.send(mediiElevi)
 
 @bot.command()
 async def sync(ctx):
-    
-    mediiElevi = []
-    for elev in catalog:
-        sumaMedii = 0
-        for note in elev["Medii"]:
-            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
-        average = sumaMedii/len(elev["Medii"])
-        mediiElevi.append([elev["elevId"], round(average,2)])
-    await ctx.send(mediiElevi)
+    calcMedii()
     
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
