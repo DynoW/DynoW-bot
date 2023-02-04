@@ -103,7 +103,7 @@ async def top5(ctx):
             medieMax4 = medie
         elif medie["medie"] > medieMax5["medie"]:
             medieMax5 = medie
-    await ctx.send(f"""{medieMax1} {medieMax2} {medieMax3} {medieMax4} {medieMax5}""")
+    await ctx.send(f"""[{medieMax1}, {medieMax2}, {medieMax3}, {medieMax4}, {medieMax5}]""")
     
 @bot.command()
 async def elevi(ctx):
