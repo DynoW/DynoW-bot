@@ -128,6 +128,18 @@ async def medii(ctx):
         average = sumaMedii/len(elev["Medii"])
         mediiElevi.append([elev["elevId"], round(average,2)])
     await ctx.send(mediiElevi)
+
+@bot.command()
+async def sync(ctx):
+    
+    mediiElevi = []
+    for elev in catalog:
+        sumaMedii = 0
+        for note in elev["Medii"]:
+            sumaMedii = sumaMedii + round(note["Nota"]+0.1)
+        average = sumaMedii/len(elev["Medii"])
+        mediiElevi.append([elev["elevId"], round(average,2)])
+    await ctx.send(mediiElevi)
     
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
