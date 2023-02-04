@@ -45,7 +45,7 @@ async def zile(ctx, obj: str):
 '''
 @bot.command()
 async def zile_vacanta(ctx):
-    await ctx.send("⚠Eroare!!!⚠ Esti in vacanta!")
+    await ctx.send("⚠Eroare!!!⚠ Esti in vacanta! ᴅᴀɴᴜᴛᴢ ᴍᴏᴅᴇ ON")
     await ctx.channel.send(
         "https://media.cntraveler.com/photos/60e612ae0a709e97d73d9c60/1:1/w_3840,h_3840,c_limit/Beach%20Vacation%20Packing%20List-2021_GettyImages-1030311160.jpg")
 '''
