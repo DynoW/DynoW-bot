@@ -79,13 +79,19 @@ async def comenzi(ctx):
 async def elevi(ctx):
     mesaj = ""
     for elev in listaElevi:
-        mesaj = mesaj + elev["$id"] + ". " + elev["nume"] + " - " + elev["elevId"] + "\n"
+        if elev["elevId"]:
+            mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - `{elev["elevId"]}`\n"""
+        else:
+            mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - \n"""
     await ctx.send(mesaj)
 
 
 @bot.command()
 async def medii(ctx):
-    await ctx.send(mediiElevi)
+    mesaj = ""
+    for elev in mediiElevi:
+        mesaj = mesaj + f"""{elev["elevId"]} - {elev["medie"]}\n"""
+    await ctx.send(mesaj)
 
 
 @bot.command()
@@ -134,7 +140,7 @@ async def note(ctx, elevId: str):
     for elev in catalog:
         if elev["elevId"] == elevId:
             for materi in elev["Materii"]:
-                mesaj = mesaj + f"""**{materi["Nume"]}**""" + " - "
+                mesaj = mesaj + f"""*{materi["Nume"]}*""" + " - "
                 for nota in materi["Despre"][0]["data"]:
                     mesaj = mesaj + f"""*{str(round(nota[1]))}*""" + "  "
                 mesaj = mesaj + "\n"
