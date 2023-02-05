@@ -10,8 +10,8 @@ import secret
 #     catalog = json.load(r)
 # with open("elevi.json", "r") as r:
 #     listaElevi = json.load(r)
-with open("config.json", "r") as r:
-    config = json.load(r)
+# with open("config.json", "r") as r:
+#     config = json.load(r)
     
 
 # Env variables --------------------------------------------------------------------------------------------------------
