@@ -90,35 +90,29 @@ async def medii(ctx):
 
 @bot.command()
 async def top5(ctx):
-    medieMax1 = {"elevID": "None", "medie": 0}
-    medieMax2 = {"elevID": "None", "medie": 0}
-    medieMax3 = {"elevID": "None", "medie": 0}
-    medieMax4 = {"elevID": "None", "medie": 0}
-    medieMax5 = {"elevID": "None", "medie": 0}
+    mediiMax = [{"elevID": "None", "medie": 0}]*5
     for media in mediiElevi:
-        if media["medie"] > medieMax1["medie"]:
-            medieMax5 = medieMax4
-            medieMax4 = medieMax3
-            medieMax3 = medieMax2
-            medieMax2 = medieMax1
-            medieMax1 = media
-        elif media["medie"] > medieMax2["medie"]:
-            medieMax5 = medieMax4
-            medieMax4 = medieMax3
-            medieMax3 = medieMax2
-            medieMax2 = media
-        elif media["medie"] > medieMax3["medie"]:
-            medieMax5 = medieMax4
-            medieMax4 = medieMax3
-            medieMax3 = media
-        elif media["medie"] > medieMax4["medie"]:
-            medieMax5 = medieMax4
-            medieMax4 = media
-        elif media["medie"] > medieMax5["medie"]:
-            medieMax5 = media
-    await ctx.send(f"""[{medieMax1}, {medieMax2}, {medieMax3}, {medieMax4}, {medieMax5}]""")
-    
-    #comanda asta sa fie lista in loc de f. multe variablie (for loop)
+        if media["medie"] > mediiMax[0]["medie"]:
+            mediiMax[4] = mediiMax[3]
+            mediiMax[3] = mediiMax[2]
+            mediiMax[2] = mediiMax[1]
+            mediiMax[1] = mediiMax[0]
+            mediiMax[0] = media
+        elif media["medie"] > mediiMax[1]["medie"]:
+            mediiMax[4] = mediiMax[3]
+            mediiMax[3] = mediiMax[2]
+            mediiMax[2] = mediiMax[1]
+            mediiMax[1] = media
+        elif media["medie"] > mediiMax[2]["medie"]:
+            mediiMax[4] = mediiMax[3]
+            mediiMax[3] = mediiMax[2]
+            mediiMax[2] = media
+        elif media["medie"] > mediiMax[3]["medie"]:
+            mediiMax[4] = mediiMax[3]
+            mediiMax[3] = media
+        elif media["medie"] > mediiMax[4]["medie"]:
+            mediiMax[4] = media
+    await ctx.send(mediiMax)
 
 
 @bot.command()
