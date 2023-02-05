@@ -25,6 +25,7 @@ async def on_ready():
 mediiElevi = []
 
 def calcMedii():
+    
     for elev in catalog:
         sumaMedii = 0
         for medie in elev["Medii"]:
@@ -90,7 +91,7 @@ async def elevi(ctx):
 async def medii(ctx):
     mesaj = ""
     for elev in mediiElevi:
-        mesaj = mesaj + f"""{elev["elevId"]} - {elev["medie"]}\n"""
+        mesaj = mesaj + f"""`{elev["elevId"]}` - {elev["medie"]}\n"""
     await ctx.send(mesaj)
 
 
@@ -120,11 +121,14 @@ async def top5(ctx):
             mediiMax[4] = media
     embed = discord.Embed(title="Cei mai buni 5 elevi din clasa:",
                           color=discord.Color.blue())
-    embed.add_field(name="Top 1", value=f"""**{mediiMax[0]["medie"]}** - `{mediiMax[0]["elevId"]}`""", inline=False)
-    embed.add_field(name="Top 3", value=f"""**{mediiMax[1]["medie"]}** - `{mediiMax[1]["elevId"]}`""", inline=False)
-    embed.add_field(name="Top 2", value=f"""**{mediiMax[2]["medie"]}** - `{mediiMax[2]["elevId"]}`""", inline=False)
-    embed.add_field(name="Top 4", value=f"""**{mediiMax[3]["medie"]}** - `{mediiMax[3]["elevId"]}`""", inline=False)
-    embed.add_field(name="Top 5", value=f"""**{mediiMax[4]["medie"]}** - `{mediiMax[4]["elevId"]}`""", inline=False)
+    for i in range(0, 5):
+        v=0
+        for elev in listaElevi:
+            if mediiMax[i]["elevId"] == elev["elevId"]:
+                embed.add_field(name=f"Top {i+1}", value=f"""**{mediiMax[i]["medie"]}** - `{mediiMax[i]["elevId"]}` - {elev["nume"]}""", inline=False)
+                v=1
+        if v==0:
+            embed.add_field(name=f"Top {i+1}", value=f"""**{mediiMax[i]["medie"]}** - `{mediiMax[i]["elevId"]}`""", inline=False)
     embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
     await ctx.send(embed=embed)
 
