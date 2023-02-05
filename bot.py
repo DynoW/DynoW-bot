@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-import random
+import pandas as pd
 import json
-import math
 import secret
 
-with open("catalog.json", "r") as r:
-    catalog = json.load(r)
-with open("elevi.json", "r") as r:
-    listaElevi = json.load(r)
+
+# with open("catalog.json", "r") as r:
+#     catalog = json.load(r)
+# with open("elevi.json", "r") as r:
+#     listaElevi = json.load(r)
+with open("config.json", "r") as r:
+    config = json.load(r)
     
 
 # Env variables --------------------------------------------------------------------------------------------------------
@@ -25,7 +27,8 @@ async def on_ready():
 mediiElevi = []
 
 def calcMedii():
-    
+    catalog = pd.read_json('https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json')
+    listaElevi = pd.read_json('https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json')
     for elev in catalog:
         sumaMedii = 0
         for medie in elev["Medii"]:
@@ -51,11 +54,6 @@ async def zile(ctx, obj: str):
         momentspecial = datetime(2025, 6, 12)
         timpramas = momentspecial - current_time
         await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile pana la bac.")
-
-
-@bot.command()
-async def random(ctx, randomone: int, randomtwo: int):
-    await ctx.send(random.randint(randomone, randomtwo))
 
 
 # Commands with embends ------------------------------------------------------------------------------------------------
