@@ -30,7 +30,7 @@ def calcMedii():
         for medie in elev["Medii"]:
             sumaMedii = sumaMedii + round(medie["Nota"]+0.1)
         averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
-        mediiElevi.append({"elevID": elev["elevId"], "medie": round(averageMedii,2)})
+        mediiElevi.append({"elevId": elev["elevId"], "medie": round(averageMedii,2)})
 calcMedii()
 
 # Commands -------------------------------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ async def medii(ctx):
 
 @bot.command()
 async def top5(ctx):
-    mediiMax = [{"elevID": "None", "medie": 0}]*5
+    mediiMax = [{"elevId": "None", "medie": 0}]*5
     for media in mediiElevi:
         if media["medie"] > mediiMax[0]["medie"]:
             mediiMax[4] = mediiMax[3]
@@ -112,7 +112,15 @@ async def top5(ctx):
             mediiMax[3] = media
         elif media["medie"] > mediiMax[4]["medie"]:
             mediiMax[4] = media
-    await ctx.send(mediiMax)
+    embed = discord.Embed(title="Cei mai buni 5 elevi din clasa:",
+                          color=discord.Color.blue())
+    embed.add_field(name="Top 1", value=f"""**{mediiMax[0]["medie"]}** - `{mediiMax[0]["elevId"]}`""", inline=False)
+    embed.add_field(name="Top 3", value=f"""**{mediiMax[1]["medie"]}** - `{mediiMax[1]["elevId"]}`""", inline=False)
+    embed.add_field(name="Top 2", value=f"""**{mediiMax[2]["medie"]}** - `{mediiMax[2]["elevId"]}`""", inline=False)
+    embed.add_field(name="Top 4", value=f"""**{mediiMax[3]["medie"]}** - `{mediiMax[3]["elevId"]}`""", inline=False)
+    embed.add_field(name="Top 5", value=f"""**{mediiMax[4]["medie"]}** - `{mediiMax[4]["elevId"]}`""", inline=False)
+    embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
+    await ctx.send(embed=embed)
 
 
 @bot.command()
@@ -126,9 +134,9 @@ async def note(ctx, elevId: str):
     for elev in catalog:
         if elev["elevId"] == elevId:
             for materi in elev["Materii"]:
-                mesaj = mesaj + materi["Nume"] + " - "
+                mesaj = mesaj + f"""**{materi["Nume"]}**""" + " - "
                 for nota in materi["Despre"][0]["data"]:
-                    mesaj = mesaj + str(round(nota[1])) + " "
+                    mesaj = mesaj + f"""*{str(round(nota[1]))}*""" + "  "
                 mesaj = mesaj + "\n"
     await ctx.send(mesaj)
 
