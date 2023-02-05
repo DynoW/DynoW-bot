@@ -6,10 +6,10 @@ import json
 import secret
 
 
-# with open("catalog.json", "r") as r:
-#     catalog = json.load(r)
-# with open("elevi.json", "r") as r:
-#     listaElevi = json.load(r)
+with open("catalog.json", "r") as r:
+     catalog = json.load(r)
+with open("elevi.json", "r") as r:
+    listaElevi = json.load(r)
 # with open("config.json", "r") as r:
 #     config = json.load(r)
     
@@ -27,8 +27,6 @@ async def on_ready():
 mediiElevi = []
 
 def calcMedii():
-    catalog = pd.read_json('https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json')
-    listaElevi = pd.read_json('https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json')
     for elev in catalog:
         sumaMedii = 0
         for medie in elev["Medii"]:
