@@ -1,18 +1,15 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-import pandas as pd
+import wget
 import json
 import secret
+import os
 
 
-with open("catalog.json", "r") as r:
-     catalog = json.load(r)
-with open("elevi.json", "r") as r:
-    listaElevi = json.load(r)
-# with open("config.json", "r") as r:
-#     config = json.load(r)
-    
+catalog = []
+listaElevi = []
+mediiElevi = []
 
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
@@ -24,9 +21,19 @@ async def on_ready():
     print("Bot is online!")
 
 # Functions ------------------------------------------------------------------------------------------------------------
-mediiElevi = []
-
 def calcMedii():
+    if os.path.exists("catalog.json"):
+        os.remove("catalog.json")
+    wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json", out="catalog.json")
+    with open("catalog.json", "r") as r:
+        catalog = json.load(r)
+    if os.path.exists("elevi.json"):
+        os.remove("elevi.json")
+    wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json", out="elevi.json")
+    with open("elevi.json", "r") as r:
+        listaElevi = json.load(r)
+    # with open("config.json", "r") as r:
+    #     config = json.load(r)
     for elev in catalog:
         sumaMedii = 0
         for medie in elev["Medii"]:
@@ -84,7 +91,7 @@ async def elevi(ctx):
 
 
 @bot.command()
-async def medii(ctx):
+async def all(ctx):
     mesaj = ""
     for elev in mediiElevi:
         mesaj = mesaj + f"""`{elev["elevId"]}` - {elev["medie"]}\n"""
