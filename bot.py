@@ -8,7 +8,8 @@ import os
 
 
 catalog = []
-listaElevi = []
+with open("elevi.json", "r") as r:
+    listaElevi = json.load(r)
 mediiElevi = []
 
 # Env variables --------------------------------------------------------------------------------------------------------
@@ -22,16 +23,16 @@ async def on_ready():
 
 # Functions ------------------------------------------------------------------------------------------------------------
 def calcMedii():
-    if os.path.exists("catalog.json"):
-        os.remove("catalog.json")
-    wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json", out="catalog.json")
+    # if os.path.exists("catalog.json"):
+    #     os.remove("catalog.json")
+    # wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json", out="catalog.json")
     with open("catalog.json", "r") as r:
         catalog = json.load(r)
-    if os.path.exists("elevi.json"):
-        os.remove("elevi.json")
-    wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json", out="elevi.json")
-    with open("elevi.json", "r") as r:
-        listaElevi = json.load(r)
+        
+    #if os.path.exists("elevi.json"):
+    #    os.remove("elevi.json")
+    # wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json", out="elevi.json")
+    
     # with open("config.json", "r") as r:
     #     config = json.load(r)
     for elev in catalog:
@@ -83,7 +84,7 @@ async def comenzi(ctx):
 async def elevi(ctx):
     mesaj = ""
     for elev in listaElevi:
-        if elev["elevId"]:
+        if elev["elevId"]!="":
             mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - `{elev["elevId"]}`\n"""
         else:
             mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - \n"""
