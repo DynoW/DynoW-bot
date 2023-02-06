@@ -1,4 +1,4 @@
 discord
-pandas
+wget
 selenium
 webdriver_manager
