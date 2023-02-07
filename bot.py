@@ -24,17 +24,6 @@ async def on_ready():
 
 # Functions ------------------------------------------------------------------------------------------------------------
 def calcMedii():
-    # if os.path.exists("catalog.json"):
-    #     os.remove("catalog.json")
-    # wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json", out="catalog.json")
-    
-        
-    #if os.path.exists("elevi.json"):
-    #    os.remove("elevi.json")
-    # wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/elevi.json", out="elevi.json")
-    
-    # with open("config.json", "r") as r:
-    #     config = json.load(r)
     for elev in catalog.find():
         sumaMedii = 0
         for medie in elev["Medii"]:
@@ -63,18 +52,6 @@ async def zile(ctx, obj: str):
 
 
 # Commands with embends ------------------------------------------------------------------------------------------------
-'''@bot.command()
-async def serverinfo(ctx):
-    embed = discord.Embed(title=f"{ctx.guild.name}", description="Description: "f"{ctx.guild.description}",
-                          color=discord.Color.blue())
-    embed.add_field(name="Server created at", value=ctx.guild.created_at.strftime("%d.%m.%Y %H:%M:%S"), inline=False)
-    embed.add_field(name="Server Region", value=f"{ctx.guild.region}", inline=False)
-    embed.add_field(name="Server ID", value=f"{ctx.guild.id}", inline=False)
-    embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
-    await ctx.send(embed=embed)
-'''
-
-
 @bot.command()
 async def comenzi(ctx):
     await ctx.send("Command is temoraly disabed!")
@@ -138,23 +115,33 @@ async def top5(ctx):
 
 
 @bot.command()
-async def sync(ctx):
-    calcMedii()
-
-
-@bot.command()
 async def note(ctx, elevId: str):
     mesaj = ""
-    for elev in catalog:
+    for elev in catalog.find():
         if elev["elevId"] == elevId:
             for materi in elev["Materii"]:
-                mesaj = mesaj + f"""*{materi["Nume"]}*""" + " - "
+                mesaj = mesaj + f"""*{materi["Nume"]}* - """
                 for nota in materi["Despre"][0]["data"]:
-                    mesaj = mesaj + f"""*{str(round(nota[1]))}*""" + "  "
+                    mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
                 mesaj = mesaj + "\n"
     await ctx.send(mesaj)
 
 
+@bot.command()
+async def medii(ctx, elevId: str):
+    mesaj = ""
+    for elev in catalog.find():
+        if elev["elevId"] == elevId:
+            for medie in elev["Medii"]:
+                mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
+    await ctx.send(mesaj)
+    
+
+@bot.command()
+async def sync(ctx):
+    calcMedii()
+    
+    
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
 async def on_message(message):
