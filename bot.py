@@ -1,15 +1,16 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-import wget
 import json
 import secret
 import os
+import pymongo
 
 
-catalog = []
-with open("elevi.json", "r") as r:
-    listaElevi = json.load(r)
+myclient = pymongo.MongoClient("mongodb+srv://dynow:Naff1324@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
+db =  myclient["db-catalog"]
+catalog = db["catalog"]
+listaElevi = db["elevi"]
 mediiElevi = []
 
 # Env variables --------------------------------------------------------------------------------------------------------
@@ -26,8 +27,7 @@ def calcMedii():
     # if os.path.exists("catalog.json"):
     #     os.remove("catalog.json")
     # wget.download("https://raw.githubusercontent.com/DynoW/api-catalog/main/catalog.json", out="catalog.json")
-    with open("catalog.json", "r") as r:
-        catalog = json.load(r)
+    
         
     #if os.path.exists("elevi.json"):
     #    os.remove("elevi.json")
@@ -35,7 +35,7 @@ def calcMedii():
     
     # with open("config.json", "r") as r:
     #     config = json.load(r)
-    for elev in catalog:
+    for elev in catalog.find():
         sumaMedii = 0
         for medie in elev["Medii"]:
             sumaMedii = sumaMedii + round(medie["Nota"]+0.1)
@@ -83,7 +83,7 @@ async def comenzi(ctx):
 @bot.command()
 async def elevi(ctx):
     mesaj = ""
-    for elev in listaElevi:
+    for elev in listaElevi.find():
         if elev["elevId"]!="":
             mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - `{elev["elevId"]}`\n"""
         else:
@@ -127,7 +127,7 @@ async def top5(ctx):
                           color=discord.Color.blue())
     for i in range(0, 5):
         v=0
-        for elev in listaElevi:
+        for elev in listaElevi.find():
             if mediiMax[i]["elevId"] == elev["elevId"]:
                 embed.add_field(name=f"Top {i+1}", value=f"""**{mediiMax[i]["medie"]}** - `{mediiMax[i]["elevId"]}` - {elev["nume"]}""", inline=False)
                 v=1

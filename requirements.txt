@@ -1,4 +1,4 @@
 discord
-wget
+pymongo
 selenium
 webdriver_manager
