@@ -1,16 +1,16 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-import json
 import secret
-import os
 import pymongo
-
+# import json
+# import os
 
 myclient = pymongo.MongoClient("mongodb+srv://dynow:Naff1324@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
 db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
+
 mediiElevi = []
 
 # Env variables --------------------------------------------------------------------------------------------------------
