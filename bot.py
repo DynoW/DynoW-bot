@@ -128,7 +128,7 @@ async def note(ctx, elevId: str):
 
 
 @bot.command()
-async def medii(ctx, elevId: str):
+async def medi(ctx, elevId: str):
     mesaj = ""
     for elev in catalog.find():
         if elev["elevId"] == elevId:
