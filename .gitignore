@@ -1,5 +1,6 @@
 /secret*
 /tempCodeRunnerFile.py
 /__pycache__
+/venv/
 /cache
 /catalog.py
