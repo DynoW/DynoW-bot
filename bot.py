@@ -71,8 +71,14 @@ async def elevi(ctx):
 @bot.command()
 async def all(ctx):
     mesaj = ""
-    for elev in mediiElevi:
-        mesaj = mesaj + f"""`{elev["elevId"]}` - {elev["medie"]}\n"""
+    for medii in mediiElevi:
+        v=0
+        for elev in listaElevi.find():
+            if elev["elevId"]==medii["elevId"]:
+                mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]} - {elev["nume"]}\n"""
+                v=1
+        if v==0:
+            mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]}\n"""
     await ctx.send(mesaj)
 
 
