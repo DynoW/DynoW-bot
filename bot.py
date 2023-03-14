@@ -146,7 +146,7 @@ async def medi(ctx, elevId: str):
 @bot.command()
 async def sync(ctx):
     calcMedii()
-    
+    await ctx.send("Done!")
     
 # Listening events -----------------------------------------------------------------------------------------------------
 @bot.listen()
