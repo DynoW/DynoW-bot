@@ -11,8 +11,6 @@ db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
 
-mediiElevi = []
-
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
 
@@ -24,6 +22,8 @@ async def on_ready():
 
 # Functions ------------------------------------------------------------------------------------------------------------
 def calcMedii():
+    global mediiElevi
+    mediiElevi = []
     for elev in catalog.find():
         sumaMedii = 0
         for medie in elev["Medii"]:
