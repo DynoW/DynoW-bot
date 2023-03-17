@@ -3,6 +3,7 @@ from discord.ext import commands
 from datetime import datetime
 import secret
 import pymongo
+import numpy as np
 # import json
 # import os
 
@@ -43,8 +44,12 @@ async def zile(ctx, obj: str):
     current_time = datetime.now()
     if obj == "scoala":
         momentspecial = datetime(2023, 6, 15)
+        timpramas = np.busday_count(current_time.date(), momentspecial.date(), holidays=['2023-04-07', '2023-04-08', '2023-04-09', '2023-04-10', '2023-04-11', '2023-04-12', '2023-04-13', '2023-04-14', '2023-04-15', '2023-04-16', '2023-04-17', '2023-04-18'])
+        await ctx.send("Mai sunt ~" + str(timpramas) + " zile de scoala.")
+    if obj == "vacanta":
+        momentspecial = datetime(2023, 6, 15)
         timpramas = momentspecial - current_time
-        await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile de scoala.")
+        await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile pana la vacanta.")    
     if obj == "bac":
         momentspecial = datetime(2025, 6, 12)
         timpramas = momentspecial - current_time
