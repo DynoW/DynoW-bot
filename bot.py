@@ -152,7 +152,7 @@ async def sync(ctx):
 @bot.listen()
 async def on_message(message):
     if "ntza" in message.content.lower():
-        await message.channel.send('Dyno BOT V2.1 Aplha is here!')
+        await message.channel.send('Dyno BOT V2.1 Beta is here!')
 
 
 @bot.listen()
