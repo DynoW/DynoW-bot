@@ -19,7 +19,9 @@ bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", inten
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="$comenzi | dynow.tk/bot"))
-    print("Bot is online!")
+    print("\x1B[3mStatus: \x1B[0m" + "Bot is online!")
+    for guild in bot.guilds:
+        print("\x1B[3mServer: \x1B[0m" + guild.name)
 
 # Functions ------------------------------------------------------------------------------------------------------------
 def calcMedii():
