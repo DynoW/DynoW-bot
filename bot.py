@@ -177,5 +177,6 @@ async def on_message(message):
 # Token ----------------------------------------------------------------------------------------------------------------
 bot.run(secret.TOKEN)
 
+# source /home/code-server/DynoW-v2.1/.venv/bin/activate
 # nohup python3 /home/code-server/DynoW-v2.1/bot.py &
-# PID: 13537
+# PID: 25950
