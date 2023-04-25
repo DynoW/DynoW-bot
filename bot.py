@@ -30,8 +30,8 @@ def calcMedii():
     for elev in catalog.find():
         sumaMedii = 0
         for medie in elev["Medii"]:
-            sumaMedii = sumaMedii + round(medie["Nota"]+0.1)
-        averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
+            sumaMedii = sumaMedii + round(medie["Nota"] + 0.09)
+        averageMedii = (sumaMedii+10)/(len(elev["Medii"]) + 1)
         mediiElevi.append({"elevId": elev["elevId"], "medie": round(averageMedii,2)})
 calcMedii()
 
