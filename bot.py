@@ -179,4 +179,4 @@ bot.run(secret.TOKEN)
 
 # source /home/code-server/DynoW-v2.1/.venv/bin/activate
 # nohup python3 /home/code-server/DynoW-v2.1/bot.py &
-# PID: 17584
+# PID: 19014
