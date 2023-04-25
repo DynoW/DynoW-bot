@@ -30,8 +30,8 @@ def calcMedii():
     for elev in catalog.find():
         sumaMedii = 0
         for medie in elev["Medii"]:
-            sumaMedii = sumaMedii + round(medie["Nota"]+0.1)
-        averageMedii = (sumaMedii+10)/(len(elev["Medii"])+1)
+            sumaMedii = sumaMedii + round(medie["Nota"] + 0.09)
+        averageMedii = (sumaMedii+10)/(len(elev["Medii"]) + 1)
         mediiElevi.append({"elevId": elev["elevId"], "medie": round(averageMedii,2)})
 calcMedii()
 
@@ -46,7 +46,7 @@ async def zile(ctx, obj: str):
     current_time = datetime.now()
     if obj == "scoala":
         momentspecial = datetime(2023, 6, 15)
-        timpramas = np.busday_count(current_time.date(), momentspecial.date(), holidays=['2023-04-07', '2023-04-08', '2023-04-09', '2023-04-10', '2023-04-11', '2023-04-12', '2023-04-13', '2023-04-14', '2023-04-15', '2023-04-16', '2023-04-17', '2023-04-18'])
+        timpramas = np.busday_count(current_time.date(), momentspecial.date(), holidays=['2023-05-01', '2023-06-01', '2023-06-02', '2023-06-05', '2023-06-16'])
         await ctx.send("Mai sunt ~" + str(timpramas) + " zile de scoala.")
     if obj == "vacanta":
         momentspecial = datetime(2023, 6, 15)
