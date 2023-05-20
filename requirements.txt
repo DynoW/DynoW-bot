@@ -1,4 +1,5 @@
 discord
 pymongo
-selenium
-webdriver_manager
+numpy
+#selenium
+#webdriver_manager
