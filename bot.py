@@ -1,7 +1,7 @@
 import discord.py
 from discord.ext import commands
 from datetime import datetime
-import secret
+import ./secret
 import pymongo
 import numpy as np
 # import json
