@@ -21,6 +21,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
+        env: TOKEN ${{ secrets.TOKEN }}
         port: ${{ secrets.PORT }}
         script: |
           cd ~/DynoW-v2.1
