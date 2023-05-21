@@ -4,7 +4,7 @@ from datetime import datetime
 import pymongo
 import numpy as np
 # import json
-# import os
+import os
 
 myclient = pymongo.MongoClient("mongodb+srv://dynow:Naff1324@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
 db =  myclient["db-catalog"]
