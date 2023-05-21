@@ -1,7 +1,6 @@
 import discord.py
 from discord.ext import commands
 from datetime import datetime
-import ./secret
 import pymongo
 import numpy as np
 # import json
@@ -175,7 +174,7 @@ async def on_message(message):
 
 
 # Token ----------------------------------------------------------------------------------------------------------------
-bot.run(secret.TOKEN)
+bot.run(os.environ["TOKEN"])
 
 # source /home/code-server/DynoW-v2.1/.venv/bin/activate
 # nohup python3 /home/code-server/DynoW-v2.1/bot.py &
