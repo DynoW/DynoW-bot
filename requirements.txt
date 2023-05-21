@@ -1,5 +1,5 @@
-discord
+discord.py
 pymongo
-numpy
+#numpy
 #selenium
 #webdriver_manager
