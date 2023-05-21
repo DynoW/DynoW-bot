@@ -3,7 +3,7 @@ from discord.ext import commands
 from datetime import datetime
 import pymongo
 import numpy as np
-import secret
+import os
 
 myclient = pymongo.MongoClient("mongodb+srv://dynow:Naff1324@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
 db =  myclient["db-catalog"]
@@ -173,7 +173,7 @@ async def on_message(message):
 
 
 # Token ----------------------------------------------------------------------------------------------------------------
-bot.run(secret.TOKEN)
+bot.run(os.environ["TOKEN"])
 
 # source /home/code-server/DynoW-v2.1/.venv/bin/activate
 # nohup python3 /home/code-server/DynoW-v2.1/bot.py &
