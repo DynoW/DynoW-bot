@@ -11,7 +11,7 @@ catalog = db["catalog"]
 listaElevi = db["elevi"]
 
 # Env variables --------------------------------------------------------------------------------------------------------
-bot = commands.Bot(command_prefix="$", description="This is a Helper Bot", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="$", description="Comenzi pentru DynoW:", intents=discord.Intents.all())
 
 # Events ---------------------------------------------------------------------------------------------------------------
 @bot.event
@@ -150,7 +150,7 @@ async def sync(ctx):
 @bot.listen()
 async def on_message(message):
     if "ntza" in message.content.lower():
-        await message.channel.send('Dyno BOT V2.1 Beta is here!')
+        await message.channel.send('Dyno BOT V2.1 is here!')
 
 @bot.listen()
 async def on_message(message):
