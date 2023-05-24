@@ -29,5 +29,5 @@ jobs:
         script: |
           cd ~/DynoW-v2.1
           git pull
-          python3 main.py
+          python3 main.py &
           
