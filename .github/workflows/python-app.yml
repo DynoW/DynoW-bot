@@ -17,6 +17,9 @@ jobs:
     steps:       
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+        MONGO: ${{ secrets.MONGO }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
