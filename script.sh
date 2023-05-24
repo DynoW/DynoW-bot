@@ -1,6 +1,6 @@
 #!/bin/bash
 
-process_name="your_python_script.py"
+process_name="python"
 
 process_pid=$(pgrep -f "$process_name")
 
