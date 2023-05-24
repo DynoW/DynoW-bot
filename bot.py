@@ -38,7 +38,6 @@ calcMedii()
 async def ping(ctx):
     await ctx.send("pong")
 
-
 @bot.command()
 async def zile(ctx, obj: str):
     current_time = datetime.now()
@@ -54,7 +53,6 @@ async def zile(ctx, obj: str):
         momentspecial = datetime(2025, 6, 12)
         timpramas = momentspecial - current_time
         await ctx.send("Mai sunt ~" + str(timpramas.days) + " zile pana la bac.")
-
 
 # Commands with embends ------------------------------------------------------------------------------------------------
 @bot.command()
@@ -72,7 +70,6 @@ async def elevi(ctx):
             mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - \n"""
     await ctx.send(mesaj)
 
-
 @bot.command()
 async def all(ctx):
     mesaj = ""
@@ -85,7 +82,6 @@ async def all(ctx):
         if v==0:
             mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]}\n"""
     await ctx.send(mesaj)
-
 
 @bot.command()
 async def top5(ctx):
@@ -124,7 +120,6 @@ async def top5(ctx):
     embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
     await ctx.send(embed=embed)
 
-
 @bot.command()
 async def note(ctx, elevId: str):
     mesaj = ""
@@ -137,7 +132,6 @@ async def note(ctx, elevId: str):
                 mesaj = mesaj + "\n"
     await ctx.send(mesaj)
 
-
 @bot.command()
 async def medi(ctx, elevId: str):
     mesaj = ""
@@ -146,7 +140,6 @@ async def medi(ctx, elevId: str):
             for medie in elev["Medii"]:
                 mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
     await ctx.send(mesaj)
-    
 
 @bot.command()
 async def sync(ctx):
@@ -159,22 +152,15 @@ async def on_message(message):
     if "ntza" in message.content.lower():
         await message.channel.send('Dyno BOT V2.1 Beta is here!')
 
-
 @bot.listen()
 async def on_message(message):
     if "test" in message.content.lower():
         await message.add_reaction("<💩>")
-
 
 @bot.listen()
 async def on_message(message):
     if "care" in message.content.lower() and message.author.id == 494105470714511360:
         await message.channel.send("pe care")
 
-
 # Token ----------------------------------------------------------------------------------------------------------------
 bot.run(os.environ["TOKEN"])
-
-# source /home/code-server/DynoW-v2.1/.venv/bin/activate
-# nohup python3 /home/code-server/DynoW-v2.1/bot.py &
-# PID: 19014
