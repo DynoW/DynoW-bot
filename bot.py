@@ -164,3 +164,5 @@ async def on_message(message):
 
 # Token ----------------------------------------------------------------------------------------------------------------
 bot.run(os.environ["TOKEN"])
+
+# pyright: reportMissingImports=false
