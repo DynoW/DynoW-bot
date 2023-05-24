@@ -28,6 +28,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd ~/DynoW-v2.1
-          git pull
+          git pull origin main
           ./script.sh
           
