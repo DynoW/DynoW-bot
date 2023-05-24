@@ -11,7 +11,7 @@ catalog = db["catalog"]
 listaElevi = db["elevi"]
 
 # Env variables --------------------------------------------------------------------------------------------------------
-bot = commands.Bot(command_prefix="$", description="Comenzi pentru DynoW:", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="$", description="Comenzi pentru DynoW BOT:", intents=discord.Intents.all())
 
 # Events ---------------------------------------------------------------------------------------------------------------
 @bot.event
