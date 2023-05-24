@@ -5,7 +5,7 @@ import pymongo
 import numpy as np
 import os
 
-myclient = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO"] + "@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
+myclient = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO"] + "cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
 db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
