@@ -35,7 +35,7 @@ calcMedii()
 
 # Commands -------------------------------------------------------------------------------------------------------------
 @bot.command(pass_context=True)
-async def ping(ctx)
+async def ping(ctx):
     """Returns a pong!"""
     await ctx.send("pong")
 
