@@ -35,7 +35,7 @@ calcMedii()
 
 # Commands -------------------------------------------------------------------------------------------------------------
 @bot.command()
-async def ping(ctx):
+async def ping(ctx, description="Sends a response."):
     await ctx.send("pong")
 
 @bot.command()
