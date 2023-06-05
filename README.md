@@ -1,1 +1,1 @@
-# Discord bot DynoW
+# Discord bot `DynoW#0016`
