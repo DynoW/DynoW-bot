@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file_path="swich.txt"
+file_path="/root/DynoW-bot/swich.txt"
 
 file_content=$(cat "$file_path")
 
