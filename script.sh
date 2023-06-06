@@ -1,14 +1,30 @@
 #!/bin/bash
 
-process_name="python3"
+file_path="./swich.txt"
 
-process_pid=$(pgrep -f "$process_name")
+file_content=$(cat "$file_path")
 
-if [ -n "$process_pid" ]; then
-  echo "Killing Python process with PID $process_pid"
-  kill "$process_pid"
-  nohup python3 main.py > /dev/null 2>&1 &
+if [ "$file_content" == "ON" ]; then
+    echo "Running the command..."
+    process_name="python3"
+    process_pid=$(pgrep -f "$process_name")
+
+    if [ -n "$process_pid" ]; then
+      echo "Killing Python process with PID $process_pid"
+      kill "$process_pid"
+      nohup python3 main.py > /dev/null 2>&1 &
+    else
+      echo "Python process is not running."
+      nohup python3 main.py > /dev/null 2>&1 &
+    fi
 else
-  echo "Python process is not running."
-  nohup python3 main.py > /dev/null 2>&1 &
+    echo "The file content is not 'ON'."
+    process_name="python3"
+    process_pid=$(pgrep -f "$process_name")
+
+    if [ -n "$process_pid" ]; then
+      echo "Killing Python process with PID $process_pid"
+      kill "$process_pid"
+    else
+      echo "Python process is not running."
 fi
