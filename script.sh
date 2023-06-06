@@ -27,4 +27,5 @@ else
       kill "$process_pid"
     else
       echo "Python process is not running."
+    fi
 fi
