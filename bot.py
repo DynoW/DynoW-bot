@@ -91,44 +91,66 @@ class Catalog(commands.Cog):
             else:
                 mesaj = mesaj + f"""{elev["$id"]}. {elev["nume"]} - \n"""
         await ctx.send(mesaj)
-        
+
     @commands.command()
-    async def top5(self, ctx):
-        """5 cei mai buni din clasa"""
-        mediiMax = [{"elevId": "None", "medie": 0}]*5
+    async def top(self, ctx):
+        """Afiseaza premiile si mentiunule la final de an"""
+        mediiMax = [[{"elevId": "None", "medie": 0}]]*6
         for media in mediiElevi:
-            if media["medie"] > mediiMax[0]["medie"]:
+            if media["medie"] > mediiMax[0][0]["medie"]:
+                mediiMax[5] = mediiMax[4]
                 mediiMax[4] = mediiMax[3]
                 mediiMax[3] = mediiMax[2]
                 mediiMax[2] = mediiMax[1]
                 mediiMax[1] = mediiMax[0]
-                mediiMax[0] = media
-            elif media["medie"] > mediiMax[1]["medie"]:
+                mediiMax[0] = [media]
+            elif media["medie"] == mediiMax[0][0]["medie"]:
+                mediiMax[0] = mediiMax[0] + [media]
+            elif media["medie"] > mediiMax[1][0]["medie"]:
+                mediiMax[5] = mediiMax[4]
                 mediiMax[4] = mediiMax[3]
                 mediiMax[3] = mediiMax[2]
                 mediiMax[2] = mediiMax[1]
-                mediiMax[1] = media
-            elif media["medie"] > mediiMax[2]["medie"]:
+                mediiMax[1] = [media]
+            elif media["medie"] == mediiMax[1][0]["medie"]:
+                mediiMax[1] = mediiMax[1] + [media]
+            elif media["medie"] > mediiMax[2][0]["medie"]:
+                mediiMax[5] = mediiMax[4]
                 mediiMax[4] = mediiMax[3]
                 mediiMax[3] = mediiMax[2]
-                mediiMax[2] = media
-            elif media["medie"] > mediiMax[3]["medie"]:
+                mediiMax[2] = [media] 
+            elif media["medie"] == mediiMax[2][0]["medie"]:
+                mediiMax[2] = mediiMax[2] + [media] 
+            elif media["medie"] > mediiMax[3][0]["medie"]:
+                mediiMax[5] = mediiMax[4]
                 mediiMax[4] = mediiMax[3]
-                mediiMax[3] = media
-            elif media["medie"] > mediiMax[4]["medie"]:
-                mediiMax[4] = media
-        embed = discord.Embed(title="Cei mai buni 5 elevi din clasa:", color=discord.Color.blue())
-        for i in range(0, 5):
+                mediiMax[3] = [media] 
+            elif media["medie"] == mediiMax[3][0]["medie"]:
+                mediiMax[3] = mediiMax[3] + [media]
+            elif media["medie"] > mediiMax[4][0]["medie"]:
+                mediiMax[5] = mediiMax[4]
+                mediiMax[4] = [media]
+            elif media["medie"] == mediiMax[4][0]["medie"]:
+                mediiMax[4] = mediiMax[4] + [media]
+            elif media["medie"] > mediiMax[4][0]["medie"]:
+                mediiMax[5] = [media]
+            elif media["medie"] == mediiMax[5][0]["medie"]:
+                mediiMax[5] = mediiMax[5] + [media]
+        embed = discord.Embed(title="Premiile de la final de an sunt:", color=discord.Color.blue())
+        for i in range(0, 6):
             v=0
-            for elev in listaElevi.find():
-                if mediiMax[i]["elevId"] == elev["elevId"]:
-                    embed.add_field(name=f"Top {i+1}", value=f"""**{mediiMax[i]["medie"]}** - `{mediiMax[i]["elevId"]}` - {elev["nume"]}""", inline=False)
-                    v=1
-            if v==0:
-                embed.add_field(name=f"Top {i+1}", value=f"""**{mediiMax[i]["medie"]}** - `{mediiMax[i]["elevId"]}`""", inline=False)
-        embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
+            size=len(mediiMax[i])
+            mesaj=""
+            for j in range(0,size):
+                for elev in listaElevi.find():
+                    if mediiMax[i][j]["elevId"] == elev["elevId"]:
+                        mesaj = mesaj + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}` - {elev["nume"]}\n"""
+                        v=1
+                if v==0:
+                    mesaj = mesaj + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}`\n"""
+            embed.add_field(name=f"Top {i+1}", value=mesaj, inline=False)
         await ctx.send(embed=embed)
-
+                
     @commands.command()
     async def medi(self, ctx, elevId: str):
         """[id_elev] - Verifica mediile cuiva"""
