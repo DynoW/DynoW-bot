@@ -8,4 +8,6 @@
 DynoW BOT este un bot pentru aplicatia Discord scris in limbajul python.
 Acesta a fost facut de Danutz pentru a usura calcularea mediilor, verificarea notelor si multe altele!
 
+![bot-profile](https://raw.githubusercontent.com/DynoW/DynoW-bot/main/bot-profile.png)
+
 Scrieti $help pentru a vedea o lista intreaga cu comenzi utile!
