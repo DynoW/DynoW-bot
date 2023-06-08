@@ -38,7 +38,6 @@ def calcMedii():
 calcMedii()
 
 # Commands -------------------------------------------------------------------------------------------------------------
-
 class Fun(commands.Cog):
     """Comenzi amuzante"""
     
