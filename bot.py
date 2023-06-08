@@ -246,7 +246,7 @@ async def on_message(message):
         await message.channel.send('Dyno BOT V2.1 is here!')
     if "test" in message.content.lower():
         await message.add_reaction("<💩>")
-    if "Andreea" or "Andreea Andrei" in message.content.lower():
+    if "andreea" or "andreea andrei" in message.content.lower():
         await message.add_reaction("<:Alex:>")
     if "care" in message.content.lower() and message.author.id == 494105470714511360:
         await message.channel.send("pe care")
