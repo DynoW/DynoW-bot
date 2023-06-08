@@ -247,11 +247,11 @@ async def on_message(message):
     if "test" in message.content.lower():
         await message.add_reaction("<💩>")
     if "andreea" or "andreea andrei" in message.content.lower():
-        await message.add_reaction("<:Alex:>")
+        await message.add_reaction("<:Alex:953951303187431455>")
     if "care" in message.content.lower() and message.author.id == 494105470714511360:
         await message.channel.send("pe care")
     if "sex" in message.content.lower() and message.author.id == 257061276486729728:
-        await message.channel.send(":Alex:")
+        await message.channel.send("<:Alex:953951303187431455>")
     if "kill" in message.content.lower():
         if message.author.id == 455608238335983617:
             await message.channel.send("I'M DEAD 💀")
