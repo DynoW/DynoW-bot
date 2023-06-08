@@ -137,6 +137,7 @@ class Catalog(commands.Cog):
             elif media["medie"] == mediiMax[5][0]["medie"]:
                 mediiMax[5] = mediiMax[5] + [media]
         embed = discord.Embed(title="Premiile de la final de an sunt:", color=discord.Color.blue())
+        listaPremii = ["Premiul I", "Premiul II", "Premiul III", "Mentiune I", "Mentiune II", "Mentiune III"]
         for i in range(0, 6):
             v=0
             size=len(mediiMax[i])
@@ -148,7 +149,7 @@ class Catalog(commands.Cog):
                         v=1
                 if v==0:
                     mesaj = mesaj + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}`\n"""
-            embed.add_field(name=f"Top {i+1}", value=mesaj, inline=False)
+            embed.add_field(name=listaPremii[i], value=mesaj, inline=False)
         await ctx.send(embed=embed)
                 
     @commands.command()
