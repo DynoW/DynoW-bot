@@ -227,14 +227,16 @@ class Catalog(commands.Cog):
             await ctx.send("[id_elev] este gresit, foloseste $all pentru a vedea toate id-urile")
         else:
             mesaj = ""
-            if elevId != "":
-                for elev in catalog.find():
-                    if elev["elevId"] == elevId:
-                        for medie in elev["Medii"]:
-                            mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
-                await ctx.send(mesaj)
-            else:
-                await ctx.send("Folosire: `$medi [id_elev]`")
+            for elev in catalog.find():
+                if elev["elevId"] == elevId:
+                    for materi in elev["Materii"]:
+                        for materie in materiile.find():
+                            if materie["Nume3"] == materi["Nume"]:
+                                mesaj = mesaj + f"""*{materie["Nume2"]}* - """
+                        for nota in materi["Despre"][0]["data"]:
+                            mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
+                        mesaj = mesaj + "\n"
+            await ctx.send(mesaj)
             
     @commands.command()
     async def sync(self,ctx):
