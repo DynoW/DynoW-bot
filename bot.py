@@ -45,7 +45,7 @@ class Fun(commands.Cog):
     async def ping(self, ctx):
         """Returns a pong!"""
         await ctx.send("pong")
-        
+
     @commands.command()
     async def zile(self, ctx, obj: str = None):
         """scoala | vacanta | bac"""
