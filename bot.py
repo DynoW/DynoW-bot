@@ -153,30 +153,38 @@ class Catalog(commands.Cog):
             embed.add_field(name=f"{listaTrofee[i]} {listaPremii[i]}", value=mesaj, inline=False)
         embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
         await ctx.send(embed=embed)
-                
+    
+    @commands.command()
+    async def 
+    
     @commands.command()
     async def medi(self, ctx, elevId: str):
         """[id_elev] - Verifica mediile cuiva"""
-        mesaj = ""
-        for elev in catalog.find():
-            if elev["elevId"] == elevId:
-                for medie in elev["Medii"]:
-                    mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
-        await ctx.send(mesaj)
+        if elevId != "":
+            mesaj = ""
+            for elev in catalog.find():
+                if elev["elevId"] == elevId:
+                    for medie in elev["Medii"]:
+                        mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
+            await ctx.send(mesaj)
+        else:
+            await ctx.send("Folosire: `$medi [id_elev]`")
 
     @commands.command()
     async def note(self, ctx, elevId: str):
         """[id_elev] - Verifica notele cuiva"""
-        mesaj = ""
-        for elev in catalog.find():
-            if elev["elevId"] == elevId:
-                for materi in elev["Materii"]:
-                    mesaj = mesaj + f"""*{materi["Nume"]}* - """
-                    for nota in materi["Despre"][0]["data"]:
-                        mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
-                    mesaj = mesaj + "\n"
-        await ctx.send(mesaj)
-
+        if elevId != "":
+            mesaj = ""
+            for elev in catalog.find():
+                if elev["elevId"] == elevId:
+                    for materi in elev["Materii"]:
+                        mesaj = mesaj + f"""*{materi["Nume"]}* - """
+                        for nota in materi["Despre"][0]["data"]:
+                            mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
+                        mesaj = mesaj + "\n"
+            await ctx.send(mesaj)
+        else:
+            await ctx.send("Folosire: `$note [id_elev]`")
     @commands.command()
     async def sync(self,ctx):
         """Sinconizare cu baza de date"""
