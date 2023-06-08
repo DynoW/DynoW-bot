@@ -215,7 +215,7 @@ class Catalog(commands.Cog):
                     for medie in elev["Medii"]:
                         for materie in materiile.find():
                             if materie["Nume"] == medie["Nume"]:
-                                mesaj = mesaj + f"""*{materie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
+                                mesaj = mesaj + f"""*{materie["Nume2"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
             await ctx.send(mesaj)
 
     @commands.command()
