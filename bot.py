@@ -166,7 +166,7 @@ class Catalog(commands.Cog):
                     if elev["Medii"][i]["Nume"] == materie["Nume"]:
                         avgmaterie = avgmaterie + elev["Medii"][i]["Nota"]
             avgmaterie = avgmaterie/28
-            embed.add_field(name=materie["Nume2"], value=f" - {round(avgmaterie, 2)}", inline=True)
+            embed.add_field(name=materie["Nume2"], value=f" - **{round(avgmaterie, 2)}**", inline=True)
         embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
         await ctx.send(embed=embed)
     
