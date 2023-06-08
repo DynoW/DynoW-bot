@@ -48,21 +48,26 @@ class Fun(commands.Cog):
         await ctx.send("pong")
         
     @commands.command()
-    async def zile(self, ctx, obj: str):
+    async def zile(self, ctx, obj: str = None):
         """scoala | vacanta | bac"""
-        current_time = datetime.now()
-        if obj == "scoala":
-            momentspecial = datetime(2023, 6, 15)
-            timpramas = np.busday_count(current_time.date(), momentspecial.date(), holidays=['2023-05-01', '2023-06-01', '2023-06-02', '2023-06-05', '2023-06-16'])
-            await ctx.send("Mai sunt " + str(timpramas) + " zile de scoala.")
-        if obj == "vacanta":
-            momentspecial = datetime(2023, 6, 15)
-            timpramas = momentspecial - current_time
-            await ctx.send("Mai sunt " + str(timpramas.days) + " zile pana la vacanta.")    
-        if obj == "bac":
-            momentspecial = datetime(2025, 6, 12)
-            timpramas = momentspecial - current_time
-            await ctx.send("Mai sunt " + str(timpramas.days) + " zile pana la bac.")
+        if obj is None:
+            await ctx.send("Foloseste: *$zile scoala/vacanta/bac*")
+        elif obj != "scoala" and obj != "vacanta" and obj != "bac":
+            await ctx.send("Foloseste: *$zile scoala/vacanta/bac*")
+        else:
+            current_time = datetime.now()
+            if obj == "scoala":
+                momentspecial = datetime(2023, 6, 15)
+                timpramas = np.busday_count(current_time.date(), momentspecial.date(), holidays=['2023-05-01', '2023-06-01', '2023-06-02', '2023-06-05', '2023-06-16'])
+                await ctx.send("Mai sunt " + str(timpramas) + " zile de scoala.")
+            if obj == "vacanta":
+                momentspecial = datetime(2023, 6, 15)
+                timpramas = momentspecial - current_time
+                await ctx.send("Mai sunt " + str(timpramas.days) + " zile pana la vacanta.")    
+            if obj == "bac":
+                momentspecial = datetime(2025, 6, 12)
+                timpramas = momentspecial - current_time
+                await ctx.send("Mai sunt " + str(timpramas.days) + " zile pana la bac.")
 
 # Catalog commands -----------------------------------------------------------------------------------------------------
 class Catalog(commands.Cog):
