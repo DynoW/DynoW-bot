@@ -10,7 +10,7 @@ myclient = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO"] + "cluster
 db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
-materii = db["materii"]
+materiile = db["materii"]
 
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="Comenzi pentru DynoW BOT:", help_command = commands.DefaultHelpCommand(no_category = 'Help'), intents=discord.Intents.all())
@@ -190,7 +190,7 @@ class Catalog(commands.Cog):
     async def materii(self, ctx):
         """Vezi media clasei la fiecare materie"""
         embed = discord.Embed(title="Media clasei la fiecare materie:", color=discord.Color.blue())
-        for materie in materii.find():
+        for materie in materiile.find():
             avgmaterie = 0
             for elev in catalog.find():
                 for i in range(0,17):
@@ -224,10 +224,13 @@ class Catalog(commands.Cog):
         elif int(elevId) < 304772 or int(elevId) > 304800:
             await ctx.send("[id_elev] este gresit, foloseste $all pentru a vedea toate id-urile")
         else:
+            mesaj = ""
             for elev in catalog.find():
                 if elev["elevId"] == elevId:
                     for materi in elev["Materii"]:
-                        mesaj = mesaj + f"""*{materi["Nume"]}* - """
+                        for materie in materiile.find():
+                            if materie["Nume"] == materi["Nume"]:
+                                mesaj = mesaj + f"""*{materie["Nume2"]}* - """
                         for nota in materi["Despre"][0]["data"]:
                             mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
                         mesaj = mesaj + "\n"
@@ -246,7 +249,7 @@ async def on_message(message):
         await message.channel.send('Dyno BOT V2.1 is here!')
     if "test" in message.content.lower():
         await message.add_reaction("<💩>")
-    if "andreea" or "andreea andrei" in message.content.lower():
+    if "andreea" in message.content.lower():
         await message.add_reaction("<:Alex:953951303187431455>")
     if "care" in message.content.lower() and message.author.id == 494105470714511360:
         await message.channel.send("pe care")
