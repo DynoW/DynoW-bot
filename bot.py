@@ -230,9 +230,7 @@ class Catalog(commands.Cog):
             for elev in catalog.find():
                 if elev["elevId"] == elevId:
                     for materi in elev["Materii"]:
-                        for materie in materiile.find():
-                            if materie["Nume"] == materi["Nume"]:
-                                mesaj = mesaj + f"""*{materie["Nume2"]}* - """
+                        mesaj = mesaj + materi["Nume2"]
                         for nota in materi["Despre"][0]["data"]:
                             mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
                         mesaj = mesaj + "\n"
