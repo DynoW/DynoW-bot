@@ -249,6 +249,8 @@ async def on_message(message):
         await message.add_reaction("<💩>")
     if "care" in message.content.lower() and message.author.id == 494105470714511360:
         await message.channel.send("pe care")
+    if "sex" in message.content.lower() and message.author.id == 257061276486729728:
+        await message.channel.send(":uwu:")
     if "kill" in message.content.lower():
         if message.author.id == 455608238335983617:
             await message.channel.send("I'M DEAD 💀")
