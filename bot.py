@@ -166,7 +166,7 @@ class Catalog(commands.Cog):
                     if elev["Medii"][i]["Nume"] == materie["Nume"]:
                         avgmaterie = avgmaterie + elev["Medii"][i]["Nota"]
             avgmaterie = avgmaterie/28
-            embed.add_field(name=materie["Nume2"], value=f" - {avgmaterie}", inline=True)
+            embed.add_field(name=materie["Nume2"], value=f" - {round(avgmaterie, 2)}", inline=True)
         embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
         await ctx.send(embed=embed)
     
@@ -199,13 +199,6 @@ class Catalog(commands.Cog):
         await ctx.send("Done!")
     
 # Listening events -----------------------------------------------------------------------------------------------------
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Comanda necesita `id_elev`')
-    else:
-        await ctx.send('Oops! Ceva nu a mers bine :face_with_spiral_eyes:')
-
 @bot.listen()
 async def on_message(message):
     if "ntza" in message.content.lower():
