@@ -10,6 +10,7 @@ myclient = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO"] + "cluster
 db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
+materii = db["materii"]
 
 # Env variables --------------------------------------------------------------------------------------------------------
 bot = commands.Bot(command_prefix="$", description="Comenzi pentru DynoW BOT:", help_command = commands.DefaultHelpCommand(no_category = 'Help'), intents=discord.Intents.all())
@@ -153,10 +154,7 @@ class Catalog(commands.Cog):
             embed.add_field(name=f"{listaTrofee[i]} {listaPremii[i]}", value=mesaj, inline=False)
         embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
         await ctx.send(embed=embed)
-    
-    @commands.command()
-    async def 
-    
+       
     @commands.command()
     async def medi(self, ctx, elevId: str):
         """[id_elev] - Verifica mediile cuiva"""
