@@ -198,26 +198,36 @@ class Catalog(commands.Cog):
         await ctx.send(embed=embed)
     
     @commands.command()
-    async def medi(self, ctx, elevId: str, error):
+    async def medi(self, ctx, elevId: str = None):
         """[id_elev] - Verifica mediile cuiva"""
-        mesaj = ""
-        for elev in catalog.find():
-            if elev["elevId"] == elevId:
-                for medie in elev["Medii"]:
-                    mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
-        await ctx.send(mesaj)
+        if elevId is None:
+            await ctx.send("Foloseste: *$medi [id_elev]*")
+        elif int(elevId) < 304772 or int(elevId) > 304800:
+            await ctx.send("[id_elev] gresit, foloseste $all pentru a vedea toate id-urile")
+        else:
+            mesaj = ""
+            for elev in catalog.find():
+                if elev["elevId"] == elevId:
+                    for medie in elev["Medii"]:
+                        mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
+            await ctx.send(mesaj)
 
     @commands.command()
-    async def note(self, ctx, elevId: str):
+    async def note(self, ctx, elevId: str = None):
         """[id_elev] - Verifica notele cuiva"""
-        for elev in catalog.find():
-            if elev["elevId"] == elevId:
-                for materi in elev["Materii"]:
-                    mesaj = mesaj + f"""*{materi["Nume"]}* - """
-                    for nota in materi["Despre"][0]["data"]:
-                        mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
-                    mesaj = mesaj + "\n"
-        await ctx.send(mesaj)
+        if elevId is None:
+            await ctx.send("Foloseste: *$medi [id_elev]*")
+        elif int(elevId) < 304772 or int(elevId) > 304800:
+            await ctx.send("[id_elev] este gresit, foloseste $all pentru a vedea toate id-urile")
+        else:
+            for elev in catalog.find():
+                if elev["elevId"] == elevId:
+                    for materi in elev["Materii"]:
+                        mesaj = mesaj + f"""*{materi["Nume"]}* - """
+                        for nota in materi["Despre"][0]["data"]:
+                            mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
+                        mesaj = mesaj + "\n"
+            await ctx.send(mesaj)
             
     @commands.command()
     async def sync(self,ctx):
