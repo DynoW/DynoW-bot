@@ -228,7 +228,6 @@ class Catalog(commands.Cog):
         else:
             mesaj = ""
             if elevId != "":
-                mesaj = ""
                 for elev in catalog.find():
                     if elev["elevId"] == elevId:
                         for medie in elev["Medii"]:
