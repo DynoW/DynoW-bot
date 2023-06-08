@@ -154,35 +154,44 @@ class Catalog(commands.Cog):
             embed.add_field(name=f"{listaTrofee[i]} {listaPremii[i]}", value=mesaj, inline=False)
         embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
         await ctx.send(embed=embed)
-       
+    
     @commands.command()
-    async def medi(self, ctx, elevId: str):
-        """[id_elev] - Verifica mediile cuiva"""
-        if elevId != "":
-            mesaj = ""
+    async def materii(self, ctx):
+        """Vezi media clasei la o materie"""
+        embed = discord.Embed(title="Media clasei la fiecare materie:", color=discord.Color.blue())
+        for materie in materii.find():
+            avgmaterie = 0
             for elev in catalog.find():
-                if elev["elevId"] == elevId:
-                    for medie in elev["Medii"]:
-                        mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
-            await ctx.send(mesaj)
-        else:
-            await ctx.send("Folosire: `$medi [id_elev]`")
+                for i in range(0,17):
+                    if elev["Medii"][i]["Nume"] == materie["Nume"]:
+                        avgmaterie = avgmaterie + elev["Medii"][i]["Nota"]
+            avgmaterie = avgmaterie/28
+            embed.add_field(name=materie["Nume2"], value=f" - {avgmaterie}", inline=True)
+        embed.set_footer(text="Pentru ajutor contactati: DynoW#9056")
+        await ctx.send(embed=embed)
+    
+    @commands.command()
+    async def medi(self, ctx, elevId: str, error):
+        """[id_elev] - Verifica mediile cuiva"""
+        mesaj = ""
+        for elev in catalog.find():
+            if elev["elevId"] == elevId:
+                for medie in elev["Medii"]:
+                    mesaj = mesaj + f"""*{medie["Nume"]}* - *{str(medie["Nota"])}* - Rang: {medie["Rang"]}\n"""
+        await ctx.send(mesaj)
 
     @commands.command()
     async def note(self, ctx, elevId: str):
         """[id_elev] - Verifica notele cuiva"""
-        if elevId != "":
-            mesaj = ""
-            for elev in catalog.find():
-                if elev["elevId"] == elevId:
-                    for materi in elev["Materii"]:
-                        mesaj = mesaj + f"""*{materi["Nume"]}* - """
-                        for nota in materi["Despre"][0]["data"]:
-                            mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
-                        mesaj = mesaj + "\n"
-            await ctx.send(mesaj)
-        else:
-            await ctx.send("Folosire: `$note [id_elev]`")
+        for elev in catalog.find():
+            if elev["elevId"] == elevId:
+                for materi in elev["Materii"]:
+                    mesaj = mesaj + f"""*{materi["Nume"]}* - """
+                    for nota in materi["Despre"][0]["data"]:
+                        mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
+                    mesaj = mesaj + "\n"
+        await ctx.send(mesaj)
+            
     @commands.command()
     async def sync(self,ctx):
         """Sinconizare cu baza de date"""
@@ -190,6 +199,13 @@ class Catalog(commands.Cog):
         await ctx.send("Done!")
     
 # Listening events -----------------------------------------------------------------------------------------------------
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Comanda necesita `id_elev`')
+    else:
+        await ctx.send('Oops! Ceva nu a mers bine :face_with_spiral_eyes:')
+
 @bot.listen()
 async def on_message(message):
     if "ntza" in message.content.lower():
