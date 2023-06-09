@@ -110,7 +110,7 @@ class Catalog(commands.Cog):
                 else:
                     mesaj = mesaj + f"""`{elev[0]}` - **{elev[1]}**\n"""
             await ctx.send(mesaj)
-        else:
+        if ctx.author.id != 455608238335983617:
             ctx.send("Aceasta comanda este dezactivata de Danutz - `reason: Poate fi controversata`")
     
     @commands.command()
