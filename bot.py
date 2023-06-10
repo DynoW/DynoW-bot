@@ -89,29 +89,26 @@ class Catalog(commands.Cog):
     @commands.command()
     async def list(self, ctx):
         """Vezi mediile ordonate descrescator"""
-        if ctx.author.id == 455608238335983617:
-            mesaj = ""
-            listaMedi = []
-            for medii in mediiElevi:
-                v=0
-                for elev in listaElevi.find():
-                    if elev["elevId"]==medii["elevId"]:
-                        listaMedi = listaMedi + [[medii["elevId"], medii["medie"], elev["nume"]]]
-                        v=1
-                if v==0:
-                    listaMedi = listaMedi + [[medii["elevId"], medii["medie"], None]]
-            for i in range(28):
-                for j in range(0, 28 - i - 1):
-                    if listaMedi[j][1] < listaMedi[j + 1][1]:
-                        listaMedi[j], listaMedi[j + 1] = listaMedi[j + 1], listaMedi[j]
-            for elev in listaMedi:
-                if elev[2] != None:
-                    mesaj = mesaj + f"""`{elev[0]}` - **{elev[1]}** - {elev[2]}\n"""
-                else:
-                    mesaj = mesaj + f"""`{elev[0]}` - **{elev[1]}**\n"""
-            await ctx.send(mesaj)
-        if ctx.author.id != 455608238335983617:
-            ctx.send("Aceasta comanda este dezactivata de Danutz - `reason: Poate fi controversata`")
+        mesaj = ""
+        listaMedi = []
+        for medii in mediiElevi:
+            v=0
+            for elev in listaElevi.find():
+                if elev["elevId"]==medii["elevId"]:
+                    listaMedi = listaMedi + [[medii["elevId"], medii["medie"], elev["nume"]]]
+                    v=1
+            if v==0:
+                listaMedi = listaMedi + [[medii["elevId"], medii["medie"], None]]
+        for i in range(28):
+            for j in range(0, 28 - i - 1):
+                if listaMedi[j][1] < listaMedi[j + 1][1]:
+                    listaMedi[j], listaMedi[j + 1] = listaMedi[j + 1], listaMedi[j]
+        for elev in listaMedi:
+            if elev[2] != None:
+                mesaj = mesaj + f"""`{elev[0]}` - **{elev[1]}** - {elev[2]}\n"""
+            else:
+                mesaj = mesaj + f"""`{elev[0]}` - **{elev[1]}**\n"""
+        await ctx.send(mesaj)
     
     @commands.command()
     async def elevi(self, ctx):
