@@ -161,7 +161,7 @@ class Catalog(commands.Cog):
                 mediiMax[4] = [media]
             elif media["medie"] == mediiMax[4][0]["medie"]:
                 mediiMax[4] = mediiMax[4] + [media]
-            elif media["medie"] > mediiMax[4][0]["medie"]:
+            elif media["medie"] > mediiMax[5][0]["medie"]:
                 mediiMax[5] = [media]
             elif media["medie"] == mediiMax[5][0]["medie"]:
                 mediiMax[5] = mediiMax[5] + [media]
