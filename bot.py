@@ -237,7 +237,7 @@ class Catalog(commands.Cog):
     
     @commands.command()
     async def search(self, ctx, *args: int):
-        """[id_elev] - Cauta o persoana folosind notele la matematica"""
+        """[nota1] [nota2] ... - Cauta o persoana folosind notele la matematica"""
         if len(args) == 0:
             await ctx.send("Foloseste: *$search [nota1] [nota2] [nota3] ... (la matematica)*")
         else:
