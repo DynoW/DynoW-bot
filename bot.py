@@ -234,6 +234,30 @@ class Catalog(commands.Cog):
                             mesaj = mesaj + f"""*{str(round(nota[1]))}*  """
                         mesaj = mesaj + "\n"
             await ctx.send(mesaj)
+    
+    @commands.command()
+    async def search(self, ctx, *args: int):
+        """[id_elev] - Cauta o persoana folosind notele la matematica"""
+        if len(args) == 0:
+            await ctx.send("Foloseste: *$search [nota1] [nota2] [nota3] ... (la matematica)*")
+        else:
+            mesaj = ""
+            note = []
+            for nota in args:
+                note = note + [nota]
+            for elev in catalog.find():
+                if len(elev["Materii"][0]["Despre"][0]["data"]) == len(note):
+                    ok=1
+                    for i in range(0, len(note)):
+                        if round(elev["Materii"][0]["Despre"][0]["data"][i][1], 0) != note[i]:
+                            ok=0
+                    if ok == 1:
+                        mesaj = mesaj + elev["elevId"] + "\n"
+            if mesaj == "":
+                await ctx.send("Nu a fost gasit un elev cu aceste note la matematica!")
+            else:
+                await ctx.send("Id-ul elevului poate fi:\n" + mesaj)
+                
             
     @commands.command()
     async def sync(self,ctx):
