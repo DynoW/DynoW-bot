@@ -4,9 +4,12 @@ from datetime import datetime
 import time
 import pymongo
 import numpy as np
-import os
+from decouple import config
+import urllib.parse
 
-myclient = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO"] + "cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority")
+mongo_user = urllib.parse.quote_plus(config("MONGO_USER"))
+mongo_pass = urllib.parse.quote_plus(config("MONGO_PASSWORD"))
+myclient = pymongo.MongoClient("mongodb+srv://%s:%s@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority" % (mongo_user, mongo_pass))
 db =  myclient["db-catalog"]
 catalog = db["catalog"]
 listaElevi = db["elevi"]
@@ -304,6 +307,4 @@ async def on_message(message):
             await message.channel.send("You don't have permission")
     
 # Token ----------------------------------------------------------------------------------------------------------------
-bot.run(os.environ["TOKEN"])
-
-# pyright: reportMissingImports=false
+bot.run(config("DISCORD_BOT_TOKEN"))
