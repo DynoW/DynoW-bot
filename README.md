@@ -6,7 +6,7 @@
 [![Version Branch](https://img.shields.io/badge/branch-development-blueviolet)](https://github.com/DynoW/DynoW-bot)
 
 DynoW BOT este un bot pentru aplicatia Discord scris in limbajul python.
-Acesta a fost facut de Danutz pentru a usura calcularea mediilor, verificarea notelor si multe altele!
+Acesta a fost facut de Danutz pentru a usura calcularea mediilor, verificarea notelor si multe altele pentru [24edu.ro](https://www.24edu.ro/)!
 
 ![bot-profile](https://raw.githubusercontent.com/DynoW/DynoW-bot/main/bot-profile.png)
 
