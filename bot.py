@@ -46,10 +46,16 @@ def calcMedii():
     mediiElevi = []
     for elev in catalog.find():
         sumaMedii = 0
+        v = 0
         for medie in elev["Medii"]:
             sumaMedii = sumaMedii + round(medie["Nota"] + 0.09)
         averageMedii = (sumaMedii + 10) / (len(elev["Medii"]) + 1)
-        mediiElevi.append({"elevId": elev["elevId"], "medie": round(averageMedii, 2)})
+        for elev2 in listaElevi.find():
+            if elev2["elevId"] == elev["elevId"]:
+                mediiElevi.append({"elevId": elev["elevId"], "nume": elev2["nume"], "medie": round(averageMedii, 2)})
+                v = 1
+        if v == 0:
+            mediiElevi.append({"elevId": elev["elevId"], "nume": None, "medie": round(averageMedii, 2)})
 
 
 calcMedii()
@@ -108,16 +114,11 @@ class Catalog(commands.Cog):
         """Vezi toate id-urile"""
         mesaj = ""
         for medii in mediiElevi:
-            v = 0
-            for elev in listaElevi.find():
-                if elev["elevId"] == medii["elevId"]:
-                    mesaj = (
-                        mesaj
-                        + f"""`{medii["elevId"]}` - {medii["medie"]} - {elev["nume"]}\n"""
-                    )
-                    v = 1
-            if v == 0:
+            if medii["nume"] != None:
+                mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]} - {medii["nume"]}\n"""
+            else:
                 mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]}\n"""
+        print(mesaj)
         await ctx.send(mesaj)
 
     @commands.command()
@@ -127,13 +128,11 @@ class Catalog(commands.Cog):
         listaMedi = []
         for medii in mediiElevi:
             v = 0
-            for elev in listaElevi.find():
-                if elev["elevId"] == medii["elevId"]:
+            if medii["nume"] != None:
                     listaMedi = listaMedi + [
-                        [medii["elevId"], medii["medie"], elev["nume"]]
+                        [medii["elevId"], medii["medie"], medii["nume"]]
                     ]
-                    v = 1
-            if v == 0:
+            else:
                 listaMedi = listaMedi + [[medii["elevId"], medii["medie"], None]]
         for i in range(28):
             for j in range(0, 28 - i - 1):
@@ -221,14 +220,12 @@ class Catalog(commands.Cog):
             size = len(mediiMax[i])
             mesaj = ""
             for j in range(0, size):
-                for elev in listaElevi.find():
-                    if mediiMax[i][j]["elevId"] == elev["elevId"]:
-                        mesaj = (
-                            mesaj
-                            + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}` - {elev["nume"]}\n"""
-                        )
-                        v = 1
-                if v == 0:
+                if mediiMax[i][j]["nume"] != None:
+                    mesaj = (
+                        mesaj
+                        + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}` - {mediiMax[i][j]["nume"]}\n"""
+                    )
+                else:
                     mesaj = (
                         mesaj
                         + f"""**{mediiMax[i][j]["medie"]}** - `{mediiMax[i][j]["elevId"]}`\n"""
