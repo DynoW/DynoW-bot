@@ -118,7 +118,6 @@ class Catalog(commands.Cog):
                 mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]} - {medii["nume"]}\n"""
             else:
                 mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]}\n"""
-        print(mesaj)
         await ctx.send(mesaj)
 
     @commands.command()
