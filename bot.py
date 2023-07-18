@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
 from datetime import datetime
-import time
+from datetime import datetime, timedelta
 import pymongo
-import numpy as np
 from decouple import config
 import urllib.parse
 
@@ -71,38 +70,28 @@ class Fun(commands.Cog):
         await ctx.send("pong")
 
     @commands.command()
-    async def zile(self, ctx, obj: str = None):
+    async def zile(self, ctx, obj):
         """scoala | vacanta | bac"""
-        if obj is None:
-            await ctx.send("Foloseste: *$zile scoala/vacanta/bac*")
-        elif obj != "scoala" and obj != "vacanta" and obj != "bac":
+        if obj != "scoala" and obj != "vacanta" and obj != "bac":
             await ctx.send("Foloseste: *$zile scoala/vacanta/bac*")
         else:
             current_time = datetime.now()
             if obj == "scoala":
                 momentspecial = datetime(2023, 6, 15)
-                timpramas = np.busday_count(
-                    current_time.date(),
-                    momentspecial.date(),
-                    holidays=[
-                        "2023-05-01",
-                        "2023-06-01",
-                        "2023-06-02",
-                        "2023-06-05",
-                        "2023-06-16",
-                    ],
-                )
-                await ctx.send("Mai sunt " + str(timpramas) + " zile de scoala.")
-            if obj == "vacanta":
+                weekdays = 0
+                while current_time.date() < momentspecial.date():
+                    if current_time.weekday() < 5:  # Monday to Friday are weekdays
+                        weekdays += 1
+                    current_time += timedelta(days=1)
+                await ctx.send(f"Mai sunt {weekdays} zile de scoala.")
+            elif obj == "vacanta":
                 momentspecial = datetime(2023, 6, 15)
-                timpramas = momentspecial - current_time
-                await ctx.send(
-                    "Mai sunt " + str(timpramas.days) + " zile pana la vacanta."
-                )
-            if obj == "bac":
+                remaining_days = (momentspecial - current_time).days
+                await ctx.send(f"Mai sunt {remaining_days} zile pana la vacanta.")
+            elif obj == "bac":
                 momentspecial = datetime(2025, 6, 12)
-                timpramas = momentspecial - current_time
-                await ctx.send("Mai sunt " + str(timpramas.days) + " zile pana la bac.")
+                remaining_days = (momentspecial - current_time).days
+                await ctx.send(f"Mai sunt {remaining_days} zile pana la bac.")
 
 
 # Catalog commands -----------------------------------------------------------------------------------------------------
@@ -366,11 +355,8 @@ async def on_message(message):
     if "shutdown" in message.content.lower():
         if message.author.id == 455608238335983617:
             mesaj = await message.channel.send("SHUTTING DOWN")
-            time.sleep(1)
             await mesaj.edit(content="SHUTTING DOWN.")
-            time.sleep(1)
             await mesaj.edit(content="SHUTTING DOWN..")
-            time.sleep(1)
             await mesaj.edit(content="SHUTTING DOWN...")
             exit(0)
         else:
