@@ -51,10 +51,22 @@ def calcMedii():
         averageMedii = (sumaMedii + 10) / (len(elev["Medii"]) + 1)
         for elev2 in listaElevi.find():
             if elev2["elevId"] == elev["elevId"]:
-                mediiElevi.append({"elevId": elev["elevId"], "nume": elev2["nume"], "medie": round(averageMedii, 2)})
+                mediiElevi.append(
+                    {
+                        "elevId": elev["elevId"],
+                        "nume": elev2["nume"],
+                        "medie": round(averageMedii, 2),
+                    }
+                )
                 v = 1
         if v == 0:
-            mediiElevi.append({"elevId": elev["elevId"], "nume": None, "medie": round(averageMedii, 2)})
+            mediiElevi.append(
+                {
+                    "elevId": elev["elevId"],
+                    "nume": None,
+                    "medie": round(averageMedii, 2),
+                }
+            )
 
 
 calcMedii()
@@ -104,7 +116,10 @@ class Catalog(commands.Cog):
         mesaj = ""
         for medii in mediiElevi:
             if medii["nume"] != None:
-                mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]} - {medii["nume"]}\n"""
+                mesaj = (
+                    mesaj
+                    + f"""`{medii["elevId"]}` - {medii["medie"]} - {medii["nume"]}\n"""
+                )
             else:
                 mesaj = mesaj + f"""`{medii["elevId"]}` - {medii["medie"]}\n"""
         await ctx.send(mesaj)
@@ -117,9 +132,9 @@ class Catalog(commands.Cog):
         for medii in mediiElevi:
             v = 0
             if medii["nume"] != None:
-                    listaMedi = listaMedi + [
-                        [medii["elevId"], medii["medie"], medii["nume"]]
-                    ]
+                listaMedi = listaMedi + [
+                    [medii["elevId"], medii["medie"], medii["nume"]]
+                ]
             else:
                 listaMedi = listaMedi + [[medii["elevId"], medii["medie"], None]]
         for i in range(28):
