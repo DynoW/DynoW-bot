@@ -34,6 +34,7 @@ async def on_ready():
     )
     await bot.add_cog(Fun())
     await bot.add_cog(Catalog())
+    await bot.tree.sync()
     print("\x1B[36mStatus\x1B[0m: " + "Bot is online!")
     for guild in bot.guilds:
         print("\x1B[95mServer\x1B[0m: " + guild.name)
@@ -332,11 +333,12 @@ class Catalog(commands.Cog):
             else:
                 await ctx.send("Id-ul elevului poate fi:\n" + mesaj)
 
-    @commands.command()
-    async def sync(self, ctx):
-        """Sinconizare cu baza de date"""
-        calcMedii()
-        await ctx.send("Done!")
+
+@bot.tree.command()
+async def sync(interaction: discord.Interaction):
+    """Sinconizare cu baza de date"""
+    calcMedii()
+    await interaction.response.send_message("Done!")
 
 
 # Listening events -----------------------------------------------------------------------------------------------------
