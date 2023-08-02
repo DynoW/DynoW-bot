@@ -8,6 +8,6 @@
 DynoW BOT este un bot pentru aplicatia Discord scris in limbajul python.
 Acesta a fost facut de Danutz pentru a usura calcularea mediilor, verificarea notelor si multe altele pentru [24edu.ro](https://www.24edu.ro/)!
 
-![bot-profile](https://raw.githubusercontent.com/DynoW/images/main/DynoW_bot_profile.png?token=GHSAT0AAAAAAB5PN6CS3R7S5VYBUU6OYNRSZGIXDJA)
+![bot-profile](https://raw.githubusercontent.com/DynoW/images/main/DynoW_bot_profile.png?token=GHSAT0AAAAAAB5PN6CTCYHKNRTKA5WVAWUMZGKCZWA)
 
 Scrieti `$help` pentru a vedea o lista intreaga cu comenzi utile!
