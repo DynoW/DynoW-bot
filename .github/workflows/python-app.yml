@@ -25,21 +25,20 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
-      - name: Run Code
-        run: echo "ntza" > ntza.txt
-      # - name: Deploy using ssh
-      #   uses: appleboy/ssh-action@master
-      #   env:
-      #     TOKEN: ${{ secrets.TOKEN }}
-      #     MONGO: ${{ secrets.MONGO }}
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     password: ${{ secrets.SSH_PASSWORD }}
-      #     envs: TOKEN,MONGO
-      #     port: ${{ secrets.PORT }}
-      #     script: |
-      #       cd ~/DynoW-bot
-      #       git pull origin main
-      #       ./script.sh
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          MONGO: ${{ secrets.MONGO }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          envs: TOKEN,MONGO
+          port: ${{ secrets.PORT }}
+          script: |
+            touch ntza.txt
+            cd ~/DynoW-bot
+            git pull origin main
+            ./script.sh
             
