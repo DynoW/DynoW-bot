@@ -18,17 +18,15 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
   
-      - name: Tailscale Action
-        uses: ./
+      - name: Tailscale
+        uses: tailscale/github-action@v2
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-  
+
       - name: check for hello.ts.net in netmap
-        run:
-          tailscale status
-            
+        run: echo "ntza" > ntza.txt
       # - name: Deploy using ssh
       #   uses: appleboy/ssh-action@master
       #   env:
