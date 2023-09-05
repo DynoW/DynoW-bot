@@ -14,20 +14,34 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:       
-    - name: Deploy using ssh
-      uses: appleboy/ssh-action@master
-      env:
-        TOKEN: ${{ secrets.TOKEN }}
-        MONGO: ${{ secrets.MONGO }}
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        envs: TOKEN,MONGO
-        port: ${{ secrets.PORT }}
-        script: |
-          cd ~/DynoW-bot
-          git pull origin main
-          ./script.sh
-          
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+  
+      - name: Tailscale Action
+        uses: ./
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+  
+      - name: check for hello.ts.net in netmap
+        run:
+          tailscale status
+            
+      # - name: Deploy using ssh
+      #   uses: appleboy/ssh-action@master
+      #   env:
+      #     TOKEN: ${{ secrets.TOKEN }}
+      #     MONGO: ${{ secrets.MONGO }}
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     password: ${{ secrets.SSH_PASSWORD }}
+      #     envs: TOKEN,MONGO
+      #     port: ${{ secrets.PORT }}
+      #     script: |
+      #       cd ~/DynoW-bot
+      #       git pull origin main
+      #       ./script.sh
+            
