@@ -38,7 +38,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             touch ntza.txt
-            cd ~/DynoW-bot
-            git pull origin main
-            ./script.sh
             
