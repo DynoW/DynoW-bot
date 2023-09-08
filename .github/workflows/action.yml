@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.actor }}/dynow-bot:latest
+
+jobs:
+    publish:
+        name: publish image
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v3
+        - name: Login
+          run: |
+            echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        - name: Build and Publish
+          run: |
+            docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+    deploy:
+        needs: publish
+        name: deploy image
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Tailscale
+          uses: tailscale/github-action@v2
+          with:
+            oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+            oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+            tags: tag:ci
+  
+        - name: Deploy using ssh
+          uses: appleboy/ssh-action@master
+          env:
+            MONGO_USER: ${{ secrets.MONGO_USER }}
+            MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+            DISCORD_BOT_TOKEN: ${{ secrets.DYNOW_BOT_TOKEN }}
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            envs: MONGO_USER,MONGO_PASSWORD,DISCORD_BOT_TOKEN
+            port: ${{ secrets.SSH_PORT }}
+            script: cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit
+        
+        - name: cleanup
+          run: rm -rf ~/.ssh
