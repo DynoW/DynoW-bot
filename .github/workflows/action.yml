@@ -41,7 +41,7 @@ jobs:
           env:
             MONGO_USER: ${{ secrets.MONGO_USER }}
             MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-            DISCORD_BOT_TOKEN: ${{ secrets.DYNOW_BOT_TOKEN }}
+            DNOW_BOT_TOKEN: ${{ secrets.DYNOW_BOT_TOKEN }}
           with:
             host: ${{ secrets.SSH_HOST }}
             username: ${{ secrets.SSH_USER }}
