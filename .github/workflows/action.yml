@@ -37,30 +37,18 @@ jobs:
             oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
             oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
             tags: tag:ci
-  
-        - name: copy file via ssh password
-          uses: appleboy/scp-action@v0.1.4
-          with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.SSH_PORT }}
-            source: "docker-compose.yml"
-            target: ${{ secrets.WORK_DIR }}
-
-        - name: Deploy using ssh
-          uses: appleboy/ssh-action@master
-          env:
-            MONGO_USER: ${{ secrets.MONGO_USER }}
-            MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-            DYNOW_BOT_TOKEN: ${{ secrets.DYNOW_BOT_TOKEN }}
-          with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            envs: MONGO_USER,MONGO_PASSWORD,DYNOW_BOT_TOKEN
-            port: ${{ secrets.SSH_PORT }}
-            script: cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit
+        
+        - name: install ssh keys
+          run: |
+            install -m 600 -D /dev/null ~/.ssh/id_rsa
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        
+        - name: copy docker-compose file
+          run: scp -P ${{ secrets.SSH_PORT }} docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}
+        
+        - name: connect and pull&deploy
+          run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "cd ${{ secrets.WORK_DIR }} && MONGO_USER=${{ secrets.MONGO_USER }} MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} DYNOW_BOT_TOKEN=${{ secrets.DYNOW_BOT_TOKEN }} docker compose pull && docker compose up -d && exit"
         
         - name: cleanup
           run: rm -rf ~/.ssh
