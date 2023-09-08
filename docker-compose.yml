@@ -1,0 +1,9 @@
+services:
+  myapp:
+    container_name: DynoW-bot
+    image: ghcr.io/dynow/dynow-bot:latest
+    environment:
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - DYNOW_BOT_TOKEN=${DYNOW_BOT_TOKEN}
+    restart: always

@@ -15,10 +15,12 @@ jobs:
 
         steps:
         - uses: actions/checkout@v3
+
         - name: Login
           run: |
             echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         - name: Build and Publish
+
           run: |
             docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -48,7 +50,9 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             envs: MONGO_USER,MONGO_PASSWORD,DYNOW_BOT_TOKEN
             port: ${{ secrets.SSH_PORT }}
-            script: cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit
+            script: |
+              scp docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}
+              cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit
         
         - name: cleanup
           run: rm -rf ~/.ssh
