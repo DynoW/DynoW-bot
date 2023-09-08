@@ -3,11 +3,11 @@ from discord.ext import commands
 from datetime import datetime
 from datetime import datetime, timedelta
 import pymongo
-from decouple import config
+import os
 import urllib.parse
 
-mongo_user = urllib.parse.quote_plus(config("MONGO_USER"))
-mongo_pass = urllib.parse.quote_plus(config("MONGO_PASSWORD"))
+mongo_user = urllib.parse.quote_plus(os.environ["MONGO_USER"])
+mongo_pass = urllib.parse.quote_plus(os.environ["MONGO_PASSWORD"])
 myclient = pymongo.MongoClient(
     "mongodb+srv://%s:%s@cluster0.lk2h7ri.mongodb.net/?retryWrites=true&w=majority"
     % (mongo_user, mongo_pass)
@@ -381,4 +381,4 @@ async def on_message(message):
 
 
 # Token ----------------------------------------------------------------------------------------------------------------
-bot.run(config("DISCORD_BOT_TOKEN"))
+bot.run(os.environ["DYNOW_BOT_TOKEN"])
