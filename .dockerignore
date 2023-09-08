@@ -1,4 +1,2 @@
-.github/
-venv/
-*(secret)*
+.github\workflows\action.yml
 README.md
