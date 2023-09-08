@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor }}/dynow-bot:latest
+  IMAGE_NAME: dynow/dynow-bot:latest
 
 jobs:
     publish:
