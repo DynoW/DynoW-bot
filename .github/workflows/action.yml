@@ -46,7 +46,7 @@ jobs:
             host: ${{ secrets.SSH_HOST }}
             username: ${{ secrets.SSH_USER }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
-            envs: MONGO_USER,MONGO_PASSWORD,DISCORD_BOT_TOKEN
+            envs: MONGO_USER,MONGO_PASSWORD,DYNOW_BOT_TOKEN
             port: ${{ secrets.SSH_PORT }}
             script: cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit
         
