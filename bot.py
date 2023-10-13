@@ -35,7 +35,7 @@ async def on_ready():
     await bot.add_cog(Fun())
     await bot.add_cog(Catalog())
     await bot.tree.sync()
-    print("\x1B[36mStatus\x1B[0m: " + "Bot is online!")
+    print("\x1B[36mStatus\x1B[0m: " + "Bot is online! :)")
     for guild in bot.guilds:
         print("\x1B[95mServer\x1B[0m: " + guild.name)
 
