@@ -30,7 +30,7 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     await bot.change_presence(
-        status=discord.Status.online, activity=discord.Game(name="$help | dynow.tk/bot")
+        status=discord.Status.online, activity=discord.Game(name="$help")
     )
     await bot.add_cog(Fun())
     await bot.add_cog(Catalog())
