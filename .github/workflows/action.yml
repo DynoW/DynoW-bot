@@ -47,9 +47,10 @@ jobs:
         - uses: actions/checkout@v3
         
         - name: copy docker-compose file
-          run: scp -P ${{ secrets.SSH_PORT }} docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}  
+          run: scp -P ${{ secrets.SSH_PORT }} docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}
+        
         - name: connect and pull&deploy
-          run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "cd ${{ secrets.WORK_DIR }} && MONGO_USER=${{ secrets.MONGO_USER }} MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} DYNOW_BOT_TOKEN=${{ secrets.DYNOW_BOT_TOKEN }} docker compose pull && docker compose up -d && exit"
+          run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "cd ${{ secrets.WORK_DIR }} && export MONGO_USER=${{ secrets.MONGO_USER }} MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} DYNOW_BOT_TOKEN=${{ secrets.DYNOW_BOT_TOKEN }} && docker compose pull && docker compose up -d && exit"
         
         - name: cleanup
           run: rm -rf ~/.ssh
