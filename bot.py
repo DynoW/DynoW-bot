@@ -90,7 +90,7 @@ class Fun(commands.Cog):
         else:
             current_time = datetime.now()
             if obj == "scoala":
-                momentspecial = datetime(2023, 6, 15)
+                momentspecial = datetime(2023, 10, 26)
                 weekdays = 0
                 while current_time.date() < momentspecial.date():
                     if current_time.weekday() < 5:  # Monday to Friday are weekdays
@@ -98,7 +98,7 @@ class Fun(commands.Cog):
                     current_time += timedelta(days=1)
                 await ctx.send(f"Mai sunt {weekdays} zile de scoala.")
             elif obj == "vacanta":
-                momentspecial = datetime(2023, 6, 15)
+                momentspecial = datetime(2023, 10, 26)
                 remaining_days = (momentspecial - current_time).days
                 await ctx.send(f"Mai sunt {remaining_days} zile pana la vacanta.")
             elif obj == "bac":
