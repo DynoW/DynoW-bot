@@ -358,8 +358,6 @@ async def on_message(message):
         if message.author.id == 455608238335983617:
             await message.channel.send("I'M DEAD 💀")
             await bot.change_presence(status=discord.Status.invisible)
-        else:
-            await message.channel.send("Ur not my boss :middle_finger:")
     if "revive" in message.content.lower():
         if message.author.id == 455608238335983617:
             await message.channel.send("I'M ALIVE 🥹")
@@ -367,8 +365,6 @@ async def on_message(message):
                 status=discord.Status.online,
                 activity=discord.Game(name="$help | dynow.tk/bot"),
             )
-        else:
-            await message.channel.send("Ur not my boss :middle_finger:")
     if "shutdown" in message.content.lower():
         if message.author.id == 455608238335983617:
             mesaj = await message.channel.send("SHUTTING DOWN")
