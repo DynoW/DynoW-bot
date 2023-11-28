@@ -1,4 +1,4 @@
-# Python discord bot 🤖 DynoW#0016
+# Python discord bot 🤖 `DynoW#0016`
 
 [![discord](https://img.shields.io/badge/discord-v2.2.3-blue)](https://pypi.org/project/discord/)
 [![pymongo](https://img.shields.io/badge/pymongo-v4.3.3-brightgreen)](https://pypi.org/project/pymongo/)
@@ -11,3 +11,5 @@ Acesta a fost facut de Danutz pentru a usura calcularea mediilor, verificarea no
 ![bot-profile](https://raw.githubusercontent.com/DynoW/images/main/DynoW_bot_profile.png)
 
 Scrieti `$help` pentru a vedea o lista intreaga cu comenzi utile!
+
+### ⚠️EOL - this product is discontinued until further notice
